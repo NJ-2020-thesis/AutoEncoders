@@ -1,8 +1,10 @@
 # https://github.com/pytorch/vision/blob/master/examples/python/tensor_transforms.ipynb
 # https://pytorch.org/docs/stable/torchvision/transforms.html
 
-import torch, torchvision
+import torch
+import torchvision
 import torchvision.transforms as T
+
 
 class CustomTransformation:
     def __init__(self):
@@ -15,8 +17,8 @@ class CustomTransformation:
             T.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
         ])
 
-    def transform_data(self,dataset):
-        pass
+    def transform_data(self, dataset):
+        return self.transforms(dataset)
 
 
 if __name__ == "__main__":
