@@ -38,10 +38,21 @@ class Autoencoder(nn.Module):
 
         return x
 
+    def forward_encoder(self, x):
+        x = F.relu(self.enc1(x))
+        x = F.relu(self.enc2(x))
+        x = F.relu(self.enc3(x))
+        x = F.relu(self.enc4(x))
+        x = F.relu(self.enc5(x))
+
+        return x
+
 
 activation = {}
+
+
 def get_activation(name):
-    def hook(model, output):
+    def hook(model, input, output):
         activation[name] = output.detach()
 
     return hook
@@ -54,5 +65,9 @@ if __name__ == "__main__":
     print(flat_data.shape)
 
     my_nn = Autoencoder()
+    my_nn.enc5.register_forward_hook(get_activation('enc5'))
+
     result = my_nn(flat_data)
-    print(result)
+    print(activation['enc5'])
+
+    print(my_nn.forward_encoder(flat_data))
