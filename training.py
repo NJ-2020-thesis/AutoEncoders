@@ -14,6 +14,7 @@ batch_size = 512
 epochs = 5
 learning_rate = 1e-3
 
+print(torch.cuda.is_available())
 
 class AE(nn.Module):
     def __init__(self, **kwargs):
@@ -72,6 +73,7 @@ for epoch in range(epochs):
     for batch_features, _ in train_loader:
         # reshape mini-batch data to [N, 784] matrix
         # load it to the active device
+        # batch_features = batch_features.view(-1, 784).to(device)
         batch_features = batch_features.view(-1, 784).to(device)
 
         # reset the gradients back to zero

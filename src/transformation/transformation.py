@@ -26,6 +26,7 @@ if __name__ == "__main__":
     print(torchvision.__version__)
 
     random_data = torch.rand((1, 256, 256))
+    print(random_data.shape)
 
     transformation = CustomTransformation()
     transformed_data = transformation.transform_data(random_data)

@@ -41,15 +41,6 @@ class AutoEncoder(BaseAutoencoder):
 
         return x
 
-    def forward_encoder(self, x):
-        x = F.relu(self.enc1(x))
-        x = F.relu(self.enc2(x))
-        x = F.relu(self.enc3(x))
-        x = F.relu(self.enc4(x))
-        x = F.relu(self.enc5(x))
-
-        return x
-
 
 if __name__ == "__main__":
     random_data = torch.rand((1, 1, 28, 28))
@@ -62,5 +53,3 @@ if __name__ == "__main__":
 
     result = my_nn(flat_data)
     print(my_nn.activation['enc5'])
-
-    print(my_nn.forward_encoder(flat_data))
