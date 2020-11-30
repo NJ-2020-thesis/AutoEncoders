@@ -4,10 +4,13 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+from src.autoencoders.base_autoencoder import BaseAutoencoder
 
-class Autoencoder(nn.Module):
+
+class AutoEncoder(BaseAutoencoder):
     def __init__(self):
-        super(Autoencoder, self).__init__()
+        super(BaseAutoencoder, self).__init__()
+        super(AutoEncoder, self).__init__()
 
         # Encoder
         self.enc1 = nn.Linear(in_features=784, out_features=256)  # Input image (28*28 = 784)
@@ -48,26 +51,16 @@ class Autoencoder(nn.Module):
         return x
 
 
-activation = {}
-
-
-def get_activation(name):
-    def hook(model, input, output):
-        activation[name] = output.detach()
-
-    return hook
-
-
 if __name__ == "__main__":
     random_data = torch.rand((1, 1, 28, 28))
     print(random_data.shape)
     flat_data = torch.flatten(random_data)
     print(flat_data.shape)
 
-    my_nn = Autoencoder()
-    my_nn.enc5.register_forward_hook(get_activation('enc5'))
+    my_nn = AutoEncoder()
+    my_nn.enc5.register_forward_hook(my_nn.get_activation('enc5'))
 
     result = my_nn(flat_data)
-    print(activation['enc5'])
+    print(my_nn.activation['enc5'])
 
     print(my_nn.forward_encoder(flat_data))

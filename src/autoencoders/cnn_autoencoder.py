@@ -3,10 +3,13 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+from src.autoencoders.base_autoencoder import BaseAutoencoder
+
 
 # define the NN architecture
-class ConvAutoencoder(nn.Module):
+class ConvAutoencoder(BaseAutoencoder):
     def __init__(self):
+        super(BaseAutoencoder, self).__init__()
         super(ConvAutoencoder, self).__init__()
 
         ## encoder layers ##
@@ -42,11 +45,13 @@ class ConvAutoencoder(nn.Module):
 
 
 if __name__ == "__main__":
-    random_data = torch.rand((10, 3, 64, 64))
+    random_data = torch.rand((1, 3, 64, 64))
     print(random_data.shape)
 
     # initialize the NN
     model = ConvAutoencoder()
+    model.conv2.register_forward_hook(model.get_activation('conv2'))
     print(model)
+
     result = model(random_data)
-    print(result)
+    # print(result)
