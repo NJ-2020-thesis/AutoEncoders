@@ -14,36 +14,6 @@ batch_size = 512
 epochs = 5
 learning_rate = 1e-3
 
-print(torch.cuda.is_available())
-
-class AE(nn.Module):
-    def __init__(self, **kwargs):
-        super().__init__()
-        self.encoder_hidden_layer = nn.Linear(
-            in_features=kwargs["input_shape"], out_features=128
-        )
-        self.encoder_output_layer = nn.Linear(
-            in_features=128, out_features=128
-        )
-        self.decoder_hidden_layer = nn.Linear(
-            in_features=128, out_features=128
-        )
-        self.decoder_output_layer = nn.Linear(
-            in_features=128, out_features=kwargs["input_shape"]
-        )
-
-    def forward(self, features):
-        activation = self.encoder_hidden_layer(features)
-        activation = torch.relu(activation)
-        code = self.encoder_output_layer(activation)
-        code = torch.sigmoid(code)
-        activation = self.decoder_hidden_layer(code)
-        activation = torch.relu(activation)
-        activation = self.decoder_output_layer(activation)
-        reconstructed = torch.sigmoid(activation)
-        return reconstructed
-
-
 transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
 
 train_dataset = torchvision.datasets.MNIST(
@@ -59,7 +29,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # create a model from `AE` autoencoder class
 # load it to the specified device, either gpu or cpu
-model = AutoEncoder().to(device)
+model = AutoEncoder(input_shape=784,output_shape=16).to(device)
 
 # create an optimizer object
 # Adam optimizer with learning rate 1e-3
