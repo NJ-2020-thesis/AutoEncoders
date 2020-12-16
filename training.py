@@ -5,7 +5,9 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import Dataset, DataLoader
 import torchvision
+
 from src.autoencoders.basic_autoencoder import AutoEncoder
+from src.dataset.vm_dataset import VisuomotorDataset
 
 seed = 42
 torch.manual_seed(seed)
@@ -16,9 +18,11 @@ learning_rate = 1e-3
 
 transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
 
-train_dataset = torchvision.datasets.MNIST(
-    root="~/torch_datasets", train=True, transform=transform, download=True
-)
+# train_dataset = torchvision.datasets.MNIST(
+#     root="~/torch_datasets", train=True, transform=transform, download=True
+# )
+DATASET_PATH = "/home/anirudh/Desktop/main_dataset/door_1/*.png"
+train_dataset = VisuomotorDataset(DATASET_PATH,transform,(28,28))
 
 train_loader = torch.utils.data.DataLoader(
     train_dataset, batch_size=batch_size, shuffle=True

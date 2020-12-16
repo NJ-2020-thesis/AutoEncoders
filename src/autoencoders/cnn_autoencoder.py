@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from src.autoencoders.base_autoencoder import BaseAutoencoder
-
+from src.dataset.vm_dataset import VisuomotorDataset
 
 # define the NN architecture
 class ConvAutoencoder(BaseAutoencoder):

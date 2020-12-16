@@ -16,6 +16,7 @@ from os import path
 # Ignore warnings
 import warnings
 from PIL import Image
+import cv2
 
 warnings.filterwarnings("ignore")
 
@@ -23,15 +24,18 @@ warnings.filterwarnings("ignore")
 class VisuomotorDataset(Dataset):
     """ Visuomotor Dataset Class"""
 
-    def __init__(self, root_dir, transform=None):
+    def __init__(self, root_dir, transform=None, resize = (64,64)):
         self.root_dir = root_dir
         self.transform = transform
         self.dataset = glob.glob(root_dir,recursive=True)
+        self.resize = resize
 
     def __getitem__(self, idx):
         current_img_path = self.dataset[idx]
 
-        sample = Image.open(current_img_path)
+        sample = Image.open(current_img_path).convert("RGB")
+        # sample = cv2.resize(sample,self.resize)
+        sample = sample.resize(self.resize)
 
         name = os.path.basename(current_img_path)
         label = 0 if (name.split("_")[1] == "failure") else 1
@@ -47,4 +51,6 @@ class VisuomotorDataset(Dataset):
 
 if __name__ == "__main__":
     PATH = "/home/anirudh/Desktop/main_dataset/door_1/*.png"
-    vm_dataset = VisuomotorDataset(PATH)
+    vm_dataset = VisuomotorDataset(PATH,None,(32,32))
+
+    img = vm_dataset[5]
