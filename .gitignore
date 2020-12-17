@@ -8,6 +8,7 @@ __pycache__/
 
 # User
 *.idea/
+model/
 
 # Distribution / packaging
 .Python
