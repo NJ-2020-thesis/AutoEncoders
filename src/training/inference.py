@@ -14,7 +14,7 @@ from src.autoencoders.basic_autoencoder import AutoEncoder
 from src.dataset.vm_dataset import VisuomotorDataset
 
 MODEL_SAVE = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/" \
-             "AutoEncoders/model/prototype.pth"
+             "AutoEncoders/model/ae/ae_100_28_28.pth"
 
 
 model = AutoEncoder(input_shape=784,output_shape=16)
