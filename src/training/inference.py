@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 matplotlib.use('TkAgg',warn=False, force=True)
 
 from src.autoencoders.basic_autoencoder import AutoEncoder
-from src.dataset.vm_dataset import VisuomotorDataset
+from src.dataset_utils.vm_dataset import VisuomotorDataset
 
 MODEL_SAVE = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/" \
              "AutoEncoders/model/ae/ae_100_28_28.pth"

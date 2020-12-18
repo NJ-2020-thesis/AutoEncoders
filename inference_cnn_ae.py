@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 matplotlib.use('TkAgg',warn=False, force=True)
 
 from src.autoencoders.cnn_autoencoder import ConvAutoencoder
-from src.dataset.vm_dataset import VisuomotorDataset
+from src.dataset_utils.vm_dataset import VisuomotorDataset
 
 MODEL_SAVE = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/" \
              "AutoEncoders/model/cnn_ae_test.pth"

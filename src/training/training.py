@@ -7,7 +7,7 @@ from torch.utils.data import Dataset, DataLoader
 import torchvision
 
 from src.autoencoders.basic_autoencoder import AutoEncoder
-from src.dataset.vm_dataset import VisuomotorDataset
+from src.dataset_utils.vm_dataset import VisuomotorDataset
 
 seed = 42
 torch.manual_seed(seed)
