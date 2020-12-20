@@ -42,7 +42,6 @@ class VisuomotorDataset(Dataset):
 
         if self.transform:
             sample = self.transform(sample)
-
         return sample, label
 
     def __len__(self):
@@ -50,7 +49,7 @@ class VisuomotorDataset(Dataset):
 
 
 if __name__ == "__main__":
-    PATH = "/home/anirudh/Desktop/main_dataset/door_1/*.png"
+    PATH = "/home/anirudh/Desktop/main_dataset/**/*.png"
     vm_dataset = VisuomotorDataset(PATH,None,(32,32))
-
+    print(len(vm_dataset))
     img = vm_dataset[5]

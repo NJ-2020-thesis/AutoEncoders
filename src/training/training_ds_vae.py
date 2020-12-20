@@ -9,7 +9,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.use('TkAgg',warn=False, force=True)
 
-from src.autoencoders.spatial_autoencoder import DeepSpatialAutoencoder
+from src.autoencoders.spatial_autoencoder import DeepSpatialAutoencoder, latent_loss
 from src.dataset_utils.vm_dataset import VisuomotorDataset
 
 input_dim = 28 * 28

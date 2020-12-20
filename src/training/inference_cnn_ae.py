@@ -5,6 +5,7 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import Dataset, DataLoader
 import torchvision
+import torchvision.transforms as T
 
 import matplotlib
 import matplotlib.pyplot as plt
@@ -14,7 +15,7 @@ from src.autoencoders.cnn_autoencoder import ConvAutoencoder
 from src.dataset_utils.vm_dataset import VisuomotorDataset
 
 MODEL_SAVE = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/" \
-             "AutoEncoders/model/cnn_ae_test.pth"
+             "AutoEncoders/model/cnn_ae/cnn_ae_test.pth"
 
 
 model = ConvAutoencoder()
@@ -40,7 +41,7 @@ with torch.no_grad():
         break
 
 with torch.no_grad():
-    number = 10
+    number = 2
     plt.figure(figsize=(20, 4))
     for index in range(number):
         # display original

@@ -12,11 +12,13 @@ matplotlib.use('TkAgg',warn=False, force=True)
 from src.autoencoders.vae_autoencoder import VAE,Encoder,Decoder,latent_loss
 from src.dataset_utils.vm_dataset import VisuomotorDataset
 
-input_dim = 28 * 28
+EPOCHS = 10
+input_dim = 64 * 64
 batch_size = 512
 
-DATASET_PATH = "/home/anirudh/Desktop/main_dataset/door_1/*.png"
-MODEL_SAVE_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model/cnn_vae_test.pth"
+DATASET_PATH = "/home/anirudh/Desktop/main_dataset/**/*.png"
+MODEL_SAVE_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/" \
+                  "model/cnn_vae_test_1.pth"
 
 transform = transforms.Compose([transforms.ToTensor()])
 train_dataset = VisuomotorDataset(DATASET_PATH,transform,(64,64))
@@ -34,7 +36,7 @@ criterion = nn.MSELoss()
 
 optimizer = optim.Adam(vae.parameters(), lr=0.003)
 l = None
-for epoch in range(100):
+for epoch in range(EPOCHS):
     for i, data in enumerate(dataloader, 0):
         inputs, classes = data
         inputs, classes = Variable(inputs.resize_(batch_size, input_dim)), Variable(classes)
@@ -47,10 +49,10 @@ for epoch in range(100):
         l = loss.item()
     print(epoch, l)
 
-plt.imshow(vae(inputs).data[0].numpy().reshape(28, 28), cmap='gray')
-plt.show(block=True)
-
 torch.save(vae.state_dict(), MODEL_SAVE_PATH)
+
+plt.imshow(vae(inputs).data[5].numpy().reshape(64, 64), cmap='gray')
+plt.show(block=True)
 
 # Print model's state_dict
 print("Model's state_dict:")

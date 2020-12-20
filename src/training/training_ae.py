@@ -9,14 +9,18 @@ import torchvision
 from src.autoencoders.basic_autoencoder import AutoEncoder
 from src.dataset_utils.vm_dataset import VisuomotorDataset
 
+from torch.utils.tensorboard import SummaryWriter
+writer = SummaryWriter()
+
+
 seed = 42
 torch.manual_seed(seed)
 
 batch_size = 512
-epochs = 100
+epochs = 500
 learning_rate = 1e-3
 
-DATASET_PATH = "/home/anirudh/Desktop/main_dataset/door_1/*.png"
+DATASET_PATH = "/home/anirudh/Desktop/main_dataset/**/*.png"
 MODEL_SAVE_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model/prototype.pth"
 
 transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
@@ -62,6 +66,8 @@ for epoch in range(epochs):
         # compute training reconstruction loss
         train_loss = criterion(outputs, batch_features)
 
+        writer.add_scalar("Loss/train", train_loss, epoch)
+
         # compute accumulated gradients
         train_loss.backward()
 
@@ -89,3 +95,5 @@ for var_name in optimizer.state_dict():
     print(var_name, "\t", optimizer.state_dict()[var_name])
 
 torch.save(model.state_dict(), MODEL_SAVE_PATH)
+
+writer.flush()

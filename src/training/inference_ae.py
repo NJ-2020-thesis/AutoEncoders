@@ -13,9 +13,8 @@ matplotlib.use('TkAgg',warn=False, force=True)
 from src.autoencoders.basic_autoencoder import AutoEncoder
 from src.dataset_utils.vm_dataset import VisuomotorDataset
 
-MODEL_SAVE = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/" \
-             "AutoEncoders/model/ae/ae_100_28_28.pth"
-
+MODEL_SAVE = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders" \
+             "/model/prototype.pth"
 
 model = AutoEncoder(input_shape=784,output_shape=16)
 model.load_state_dict(torch.load(MODEL_SAVE))
@@ -40,7 +39,7 @@ with torch.no_grad():
         break
 
 with torch.no_grad():
-    number = 10
+    number = 5
     plt.figure(figsize=(20, 4))
     for index in range(number):
         # display original
