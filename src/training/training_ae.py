@@ -25,9 +25,6 @@ MODEL_SAVE_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/
 
 transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
 
-# train_dataset = torchvision.datasets.MNIST(
-#     root="~/torch_datasets", train=True, transform=transform, download=True
-# )
 train_dataset = VisuomotorDataset(DATASET_PATH,transform,(28,28))
 
 train_loader = torch.utils.data.DataLoader(

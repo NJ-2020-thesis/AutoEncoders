@@ -13,7 +13,7 @@ class AutoEncoder(BaseAutoencoder):
         super(AutoEncoder, self).__init__()
 
         # Encoder
-        self.enc1 = nn.Linear(in_features=kwargs["input_shape"], out_features=256)  # Input image (28*28 = 784)
+        self.enc1 = nn.Linear(in_features=kwargs["input_shape"], out_features=256)
         self.enc2 = nn.Linear(in_features=256, out_features=128)
         self.enc3 = nn.Linear(in_features=128, out_features=64)
         self.enc4 = nn.Linear(in_features=64, out_features=32)
@@ -25,7 +25,6 @@ class AutoEncoder(BaseAutoencoder):
         self.dec3 = nn.Linear(in_features=64, out_features=128)
         self.dec4 = nn.Linear(in_features=128, out_features=256)
         self.dec5 = nn.Linear(in_features=256, out_features=kwargs["input_shape"])
-        # Output image (28*28 = 784)
 
     def forward(self, x):
         x = F.relu(self.enc1(x))

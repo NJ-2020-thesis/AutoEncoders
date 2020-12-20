@@ -22,7 +22,7 @@ model.eval()
 
 transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
 
-DATASET_PATH = "/home/anirudh/Desktop/main_dataset/door_1/*.png"
+DATASET_PATH = "/home/anirudh/Desktop/main_dataset/**/*.png"
 test_dataset = VisuomotorDataset(DATASET_PATH,transform,(28,28))
 
 test_loader = torch.utils.data.DataLoader(

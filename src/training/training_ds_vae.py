@@ -34,5 +34,3 @@ ds_vae = DeepSpatialAutoencoder(image_output_size=(28,28))
 optimizer = optim.Adam(ds_vae.parameters(), lr=0.0003)
 
 
-
-
