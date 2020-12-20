@@ -13,33 +13,38 @@ from src.autoencoders.vae_autoencoder import VAE,Encoder,Decoder,latent_loss
 from src.dataset_utils.vm_dataset import VisuomotorDataset
 
 EPOCHS = 100
-input_dim = 64 * 64
-batch_size = 512
+INPUT_SIZE = (64,64)
+INPUT_DIMS = INPUT_SIZE[0] * INPUT_SIZE[1]
+BATCH_SIZE = 512
 
 DATASET_PATH = "/home/anirudh/Desktop/main_dataset/**/*.png"
-MODEL_SAVE_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/" \
-                  "model/cnn_vae_test_100.pth"
+MODEL_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model/" \
+             "cnn_vae_test_100.pth"
 
 transform = transforms.Compose([transforms.ToTensor()])
-train_dataset = VisuomotorDataset(DATASET_PATH,transform,(64,64))
+train_dataset = VisuomotorDataset(DATASET_PATH,transform,INPUT_SIZE)
 
-dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size,
-                                         shuffle=True, num_workers=2)
+dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=BATCH_SIZE,
+                                         shuffle=True, num_workers=4)
 
 print('Number of samples: ', len(train_dataset))
 
-encoder = Encoder(input_dim, 100, 100)
-decoder = Decoder(16, 100, input_dim)
-vae = VAE(encoder, decoder)
+#  use gpu if available
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+encoder = Encoder(INPUT_DIMS, 100, 100)
+decoder = Decoder(16, 100, INPUT_DIMS)
+vae = VAE(encoder, decoder).to(device)
 
 criterion = nn.MSELoss()
 
 optimizer = optim.Adam(vae.parameters(), lr=0.0003)
+
 l = None
 for epoch in range(EPOCHS):
     for i, data in enumerate(dataloader, 0):
         inputs, classes = data
-        inputs, classes = Variable(inputs.resize_(batch_size, input_dim)), Variable(classes)
+        inputs, classes = Variable(inputs.resize_(BATCH_SIZE, INPUT_DIMS)), Variable(classes)
         optimizer.zero_grad()
         dec = vae(inputs)
         ll = latent_loss(vae.z_mean, vae.z_sigma)
@@ -49,11 +54,12 @@ for epoch in range(EPOCHS):
         l = loss.item()
     print(epoch, l)
 
-torch.save(vae.state_dict(), MODEL_SAVE_PATH)
+torch.save(vae.state_dict(), MODEL_PATH)
 
-plt.imshow(vae(inputs).data[5].numpy().reshape(64, 64), cmap='gray')
+plt.imshow(vae(inputs).data[5].numpy().reshape(INPUT_SIZE), cmap='gray')
 plt.show(block=True)
 
+print("--------------------------------------")
 # Print model's state_dict
 print("Model's state_dict:")
 for param_tensor in vae.state_dict():
@@ -64,5 +70,5 @@ print("Optimizer's state_dict:")
 for var_name in optimizer.state_dict():
     print(var_name, "\t", optimizer.state_dict()[var_name])
 
-
+print("--------------------------------------")
 

@@ -14,8 +14,9 @@ batch_size = 512
 epochs = 100
 learning_rate = 1e-3
 
-DATASET_PATH = "/home/anirudh/Desktop/main_dataset/door_1/*.png"
-MODEL_SAVE_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model/cnn_ae_test.pth"
+DATASET_PATH = "/home/anirudh/Desktop/main_dataset/**/*.png"
+MODEL_SAVE_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model/" \
+                  "cnn_ae_test.pth"
 
 transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
 

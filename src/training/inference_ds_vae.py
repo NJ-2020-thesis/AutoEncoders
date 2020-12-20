@@ -49,7 +49,7 @@ with torch.no_grad():
     print(forward1.shape)
     plt.imshow(sample)
 
-    sample_fwd = forward1[6].permute(1, 2, 0)
+    sample_fwd = forward1[3].permute(1, 2, 0)
     print(sample_fwd.shape)
 
     plt.imshow(np.squeeze(sample_fwd),cmap='gray')
