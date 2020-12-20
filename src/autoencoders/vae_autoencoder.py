@@ -54,8 +54,8 @@ class VAE(torch.nn.Module):
         super(VAE, self).__init__()
         self.encoder = encoder
         self.decoder = decoder
-        self._enc_mu = torch.nn.Linear(100, 8)
-        self._enc_log_sigma = torch.nn.Linear(100, 8)
+        self._enc_mu = torch.nn.Linear(100, 16)
+        self._enc_log_sigma = torch.nn.Linear(100, 16)
 
     def _sample_latent(self, h_enc):
         """

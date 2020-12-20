@@ -12,13 +12,13 @@ matplotlib.use('TkAgg',warn=False, force=True)
 from src.autoencoders.vae_autoencoder import VAE,Encoder,Decoder,latent_loss
 from src.dataset_utils.vm_dataset import VisuomotorDataset
 
-EPOCHS = 10
+EPOCHS = 100
 input_dim = 64 * 64
 batch_size = 512
 
 DATASET_PATH = "/home/anirudh/Desktop/main_dataset/**/*.png"
 MODEL_SAVE_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/" \
-                  "model/cnn_vae_test_1.pth"
+                  "model/cnn_vae_test_100.pth"
 
 transform = transforms.Compose([transforms.ToTensor()])
 train_dataset = VisuomotorDataset(DATASET_PATH,transform,(64,64))
@@ -29,12 +29,12 @@ dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size,
 print('Number of samples: ', len(train_dataset))
 
 encoder = Encoder(input_dim, 100, 100)
-decoder = Decoder(8, 100, input_dim)
+decoder = Decoder(16, 100, input_dim)
 vae = VAE(encoder, decoder)
 
 criterion = nn.MSELoss()
 
-optimizer = optim.Adam(vae.parameters(), lr=0.003)
+optimizer = optim.Adam(vae.parameters(), lr=0.0003)
 l = None
 for epoch in range(EPOCHS):
     for i, data in enumerate(dataloader, 0):
