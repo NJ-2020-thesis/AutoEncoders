@@ -14,7 +14,8 @@ from src.autoencoders.spatial_autoencoder import DeepSpatialAutoencoder, DSAE_Lo
 from src.dataset_utils.vm_dataset import VisuomotorDataset
 
 EPOCHS = 100
-input_dim = 28 * 28
+INPUT_SIZE = (64,64)
+INPUT_DIM = 64 * 64
 batch_size = 35
 
 DATASET_PATH = "/home/anirudh/Desktop/main_dataset/**/*.png"
@@ -22,14 +23,14 @@ MODEL_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model
                   "/cnn_ds_vae_small_1000_gpu.pth"
 
 transform = transforms.Compose([transforms.ToTensor()])
-train_dataset = VisuomotorDataset(DATASET_PATH,transform,(28,28))
+train_dataset = VisuomotorDataset(DATASET_PATH,transform,INPUT_SIZE)
 
 dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size,
                                          shuffle=True, num_workers=2)
 
 print('Number of samples: ', len(train_dataset))
 
-ds_vae = DeepSpatialAutoencoder(image_output_size=(28,28))
+ds_vae = DeepSpatialAutoencoder(image_output_size=INPUT_SIZE)
 ds_vae.load_state_dict(torch.load(MODEL_PATH))
 ds_vae.eval()
 
