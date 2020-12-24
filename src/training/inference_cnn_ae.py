@@ -7,6 +7,7 @@ from torch.utils.data import Dataset, DataLoader
 import torchvision
 import torchvision.transforms as T
 
+import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.use('TkAgg',warn=False, force=True)
@@ -24,37 +25,37 @@ model.eval()
 
 transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
 
-DATASET_PATH = "/home/anirudh/Desktop/main_dataset/door_1/*.png"
+DATASET_PATH = "/home/anirudh/Desktop/main_dataset/**/*.png"
 test_dataset = VisuomotorDataset(DATASET_PATH,transform,(64,64))
 
 test_loader = torch.utils.data.DataLoader(
     test_dataset, batch_size=10, shuffle=False
 )
 
-test_examples = None
+dataiter = iter(test_loader)
+images, labels = dataiter.next()
 
-with torch.no_grad():
-    for batch_features in test_loader:
-        batch_features = batch_features[0]
-        test_examples = batch_features
-        reconstruction = model(batch_features)
-        break
+#Sample outputs
+output = model(images)
+images = images.numpy()
 
-with torch.no_grad():
-    number = 2
-    plt.figure(figsize=(20, 4))
-    for index in range(number):
-        # display original
-        ax = plt.subplot(2, number, index + 1)
-        plt.imshow(test_examples[index].numpy().reshape(64, 64, 3))
-        plt.gray()
-        ax.get_xaxis().set_visible(False)
-        ax.get_yaxis().set_visible(False)
+output = output.view(10, 3, 64, 64)
+output = output.detach().numpy()
 
-        # display reconstruction
-        ax = plt.subplot(2, number, index + 1 + number)
-        plt.imshow(reconstruction[index].numpy().reshape(64, 64, 3))
-        plt.gray()
-        ax.get_xaxis().set_visible(False)
-        ax.get_yaxis().set_visible(False)
-    plt.show()
+#Original Images
+print("Original Images")
+fig, axes = plt.subplots(nrows=1, ncols=5, sharex=True,
+                         sharey=True, figsize=(12,4))
+for idx in np.arange(5):
+    ax = fig.add_subplot(1, 5, idx+1, xticks=[], yticks=[])
+    plt.imshow(images[idx].transpose(1,2,0))
+plt.show()
+
+#Reconstructed Images
+print('Reconstructed Images')
+fig, axes = plt.subplots(nrows=1, ncols=5, sharex=True,
+                         sharey=True, figsize=(12,4))
+for idx in np.arange(5):
+    ax = fig.add_subplot(1, 5, idx+1, xticks=[], yticks=[])
+    plt.imshow(output[idx].transpose(1,2,0))
+plt.show()

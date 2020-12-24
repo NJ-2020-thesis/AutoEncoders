@@ -9,7 +9,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.use('TkAgg',warn=False, force=True)
 
-from src.autoencoders.vae_autoencoder import VAE,Encoder,Decoder,latent_loss
+from src.autoencoders.vae_autoencoder import VAE,Encoder,Decoder
 from src.dataset_utils.vm_dataset import VisuomotorDataset
 
 EPOCHS = 100
@@ -19,7 +19,7 @@ BATCH_SIZE = 512
 
 DATASET_PATH = "/home/anirudh/Desktop/main_dataset/**/*.png"
 MODEL_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model/" \
-             "cnn_vae_test_100.pth"
+             "cnn_vae_test_1000_gpu.pth"
 
 transform = transforms.Compose([transforms.ToTensor()])
 train_dataset = VisuomotorDataset(DATASET_PATH,transform,INPUT_SIZE)
@@ -44,10 +44,13 @@ l = None
 for epoch in range(EPOCHS):
     for i, data in enumerate(dataloader, 0):
         inputs, classes = data
-        inputs, classes = Variable(inputs.resize_(BATCH_SIZE, INPUT_DIMS)), Variable(classes)
+        inputs, classes = inputs.cuda(), classes.cuda()  # add this line
+
+        inputs, classes = Variable(inputs.resize_(BATCH_SIZE, INPUT_DIMS)), \
+                          Variable(classes)
         optimizer.zero_grad()
         dec = vae(inputs)
-        ll = latent_loss(vae.z_mean, vae.z_sigma)
+        ll = vae.latent_loss(vae.z_mean, vae.z_sigma)
         loss = criterion(dec, inputs) + ll
         loss.backward()
         optimizer.step()
@@ -56,7 +59,7 @@ for epoch in range(EPOCHS):
 
 torch.save(vae.state_dict(), MODEL_PATH)
 
-plt.imshow(vae(inputs).data[5].numpy().reshape(INPUT_SIZE), cmap='gray')
+plt.imshow(vae(inputs.cuda()).data[5].numpy().reshape(INPUT_SIZE), cmap='gray')
 plt.show(block=True)
 
 print("--------------------------------------")

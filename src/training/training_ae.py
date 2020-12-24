@@ -21,7 +21,8 @@ epochs = 500
 learning_rate = 1e-3
 
 DATASET_PATH = "/home/anirudh/Desktop/main_dataset/**/*.png"
-MODEL_SAVE_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model/prototype.pth"
+MODEL_SAVE_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model/" \
+                  "gpu_prototype.pth"
 
 transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
 
@@ -33,6 +34,7 @@ train_loader = torch.utils.data.DataLoader(
 
 #  use gpu if available
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(torch.cuda.is_available())
 
 # create a model from `AE` autoencoder class
 # load it to the specified device, either gpu or cpu

@@ -13,8 +13,8 @@ matplotlib.use('TkAgg',warn=False, force=True)
 from src.autoencoders.basic_autoencoder import AutoEncoder
 from src.dataset_utils.vm_dataset import VisuomotorDataset
 
-MODEL_SAVE = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders" \
-             "/model/prototype.pth"
+MODEL_SAVE = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model/" \
+             "ae/prototype.pth"
 
 model = AutoEncoder(input_shape=784,output_shape=16)
 model.load_state_dict(torch.load(MODEL_SAVE))
@@ -22,7 +22,7 @@ model.eval()
 
 transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
 
-DATASET_PATH = "/home/anirudh/Desktop/main_dataset/**/*.png"
+DATASET_PATH = "/home/anirudh/Desktop/main_dataset/door_8/*.png"
 test_dataset = VisuomotorDataset(DATASET_PATH,transform,(28,28))
 
 test_loader = torch.utils.data.DataLoader(
