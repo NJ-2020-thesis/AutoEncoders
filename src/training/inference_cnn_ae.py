@@ -16,7 +16,7 @@ from src.autoencoders.cnn_autoencoder import ConvAutoencoder
 from src.dataset_utils.vm_dataset import VisuomotorDataset
 
 MODEL_SAVE = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/" \
-             "AutoEncoders/model/cnn_ae/cnn_ae_test.pth"
+             "AutoEncoders/model/cnn_ae_test.pth"
 
 
 model = ConvAutoencoder()

@@ -53,5 +53,8 @@ if __name__ == "__main__":
     model.conv2.register_forward_hook(model.get_activation('conv2'))
     print(model)
 
+    for parameter in model.parameters():
+        print(parameter)
+
     result = model(random_data)
     # print(result)
