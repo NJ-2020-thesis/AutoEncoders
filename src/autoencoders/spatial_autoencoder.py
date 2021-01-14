@@ -180,3 +180,16 @@ class DSAE_Loss(object):
         if self.add_g_slow:
             g_slow_contrib = self.mse_loss(ft_plus1 - ft, ft - ft_minus1)
         return loss, g_slow_contrib
+
+if __name__ == "__main__":
+
+    random_data = torch.rand((1, 3, 64, 64))
+
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    ds_vae = DeepSpatialAutoencoder(image_output_size=(64,64)).to(device)
+
+    val = ds_vae(random_data.cuda())
+    print(val.shape)
+
+    ss_am = SpatialSoftArgmax().to(device)
+    print(ss_am.forward(val.cuda()))

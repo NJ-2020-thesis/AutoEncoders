@@ -13,9 +13,10 @@ matplotlib.use('TkAgg',warn=False, force=True)
 from src.autoencoders.spatial_autoencoder import DeepSpatialAutoencoder, DSAE_Loss
 from src.dataset_utils.vm_dataset import VisuomotorDataset
 
+# --------------------------------------------------------------
 EPOCHS = 500
-INPUT_SIZE = (28, 28)
-INPUT_DIMS = INPUT_SIZE[0] * INPUT_SIZE[1]
+INPUT_SHAPE = (28, 28)
+INPUT_DIMS = INPUT_SHAPE[0] * INPUT_SHAPE[1]
 BATCH_SIZE = 512
 
 DATASET_PATH = "/home/anirudh/Desktop/main_dataset/**/*.png"
@@ -25,7 +26,7 @@ MODEL_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model
 # ---------------------------------------
 
 transform = transforms.Compose([transforms.ToTensor()])
-train_dataset = VisuomotorDataset(DATASET_PATH,transform,INPUT_SIZE)
+train_dataset = VisuomotorDataset(DATASET_PATH, transform, INPUT_SHAPE)
 
 dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=BATCH_SIZE,
                                          shuffle=True, num_workers=2)
@@ -34,7 +35,7 @@ print('Number of samples: ', len(train_dataset))
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-ds_vae = DeepSpatialAutoencoder(image_output_size=INPUT_SIZE).to(device)
+ds_vae = DeepSpatialAutoencoder(image_output_size=INPUT_SHAPE).to(device)
 
 criterion = DSAE_Loss(False)
 

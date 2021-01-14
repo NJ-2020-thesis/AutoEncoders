@@ -80,6 +80,7 @@ for epoch in range(epochs):
     # display the epoch training loss
     print("epoch : {}/{}, loss = {:.6f}".format(epoch + 1, epochs, loss))
 
+torch.save(model.state_dict(), MODEL_SAVE_PATH)
 
 # Print model's state_dict
 print("Model's state_dict:")
@@ -91,4 +92,3 @@ print("Optimizer's state_dict:")
 for var_name in optimizer.state_dict():
     print(var_name, "\t", optimizer.state_dict()[var_name])
 
-torch.save(model.state_dict(), MODEL_SAVE_PATH)
