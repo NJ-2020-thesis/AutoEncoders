@@ -5,28 +5,33 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import Dataset, DataLoader
 import torchvision
+import torchvision.transforms as T
 
 from src.autoencoders.basic_autoencoder import AutoEncoder
 from src.dataset_utils.vm_dataset import VisuomotorDataset
+from src.transformation.transformation import CustomTransformation
 
 from torch.utils.tensorboard import SummaryWriter
 writer = SummaryWriter()
 
+# --------------------------------------------------------------
 
 seed = 42
 torch.manual_seed(seed)
 
 batch_size = 512
-epochs = 500
-learning_rate = 1e-3
+epochs = 50
+learning_rate = 1e-4
 
 DATASET_PATH = "/home/anirudh/Desktop/main_dataset/**/*.png"
+MODEL_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model/" \
+                  "gpu_ae_prototype.pth"
 MODEL_SAVE_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model/" \
-                  "gpu_prototype.pth"
+                  "ae_10_200.pth"
+# --------------------------------------------------------------
 
-transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
-
-train_dataset = VisuomotorDataset(DATASET_PATH,transform,(28,28))
+transform = CustomTransformation().get_transformation()
+train_dataset = VisuomotorDataset(DATASET_PATH,transform,(64,64))
 
 train_loader = torch.utils.data.DataLoader(
     train_dataset, batch_size=batch_size, shuffle=True
@@ -38,7 +43,8 @@ print(torch.cuda.is_available())
 
 # create a model from `AE` autoencoder class
 # load it to the specified device, either gpu or cpu
-model = AutoEncoder(input_shape=784,output_shape=16).to(device)
+model = AutoEncoder(input_shape=64*64,output_shape=10).to(device)
+model.load_state_dict(torch.load(MODEL_PATH))
 
 # create an optimizer object
 # Adam optimizer with learning rate 1e-3
@@ -50,10 +56,9 @@ criterion = nn.MSELoss()
 for epoch in range(epochs):
     loss = 0
     for batch_features, _ in train_loader:
-        # reshape mini-batch data to [N, 784] matrix
         # load it to the active device
         # batch_features = batch_features.view(-1, 784).to(device)
-        batch_features = batch_features.view(-1, 784).to(device)
+        batch_features = batch_features.view(-1, 64*64).to(device)
 
         # reset the gradients back to zero
         # PyTorch accumulates gradients on subsequent backward passes
@@ -82,6 +87,9 @@ for epoch in range(epochs):
     # display the epoch training loss
     print("epoch : {}/{}, loss = {:.6f}".format(epoch + 1, epochs, loss))
 
+torch.save(model.state_dict(), MODEL_SAVE_PATH)
+
+# --------------------------------------------------------------
 
 # Print model's state_dict
 print("Model's state_dict:")
@@ -92,7 +100,6 @@ for param_tensor in model.state_dict():
 print("Optimizer's state_dict:")
 for var_name in optimizer.state_dict():
     print(var_name, "\t", optimizer.state_dict()[var_name])
-
-torch.save(model.state_dict(), MODEL_SAVE_PATH)
+# --------------------------------------------------------------
 
 writer.flush()

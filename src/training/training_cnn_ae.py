@@ -6,9 +6,12 @@ import torchvision
 
 from src.autoencoders.cnn_autoencoder import ConvAutoencoder
 from src.dataset_utils.vm_dataset import VisuomotorDataset
+from src.transformation.transformation import CustomTransformation
 
 from torch.utils.tensorboard import SummaryWriter
 writer = SummaryWriter()
+
+# --------------------------------------------------------------
 
 seed = 42
 torch.manual_seed(seed)
@@ -18,14 +21,15 @@ epochs = 500
 learning_rate = 1e-3
 
 DATASET_PATH = "/home/anirudh/Desktop/main_dataset/**/*.png"
+MODEL_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model/" \
+                  "cnn_ae_500_64.pth"
 MODEL_SAVE_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model/" \
                   "cnn_ae_500_64.pth"
+# --------------------------------------------------------------
 
-transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
+transform = CustomTransformation().get_transformation()
 
-# train_dataset = torchvision.datasets.MNIST(
-#     root="~/torch_datasets", train=True, transform=transform, download=True
-# )
+
 train_dataset = VisuomotorDataset(DATASET_PATH,transform,(64,64))
 
 train_loader = torch.utils.data.DataLoader(
@@ -82,6 +86,8 @@ for epoch in range(epochs):
 
 torch.save(model.state_dict(), MODEL_SAVE_PATH)
 
+# --------------------------------------------------------------
+
 # Print model's state_dict
 print("Model's state_dict:")
 for param_tensor in model.state_dict():
@@ -91,4 +97,5 @@ for param_tensor in model.state_dict():
 print("Optimizer's state_dict:")
 for var_name in optimizer.state_dict():
     print(var_name, "\t", optimizer.state_dict()[var_name])
+# --------------------------------------------------------------
 

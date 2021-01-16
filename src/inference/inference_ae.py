@@ -14,17 +14,17 @@ from src.autoencoders.basic_autoencoder import AutoEncoder
 from src.dataset_utils.vm_dataset import VisuomotorDataset
 
 MODEL_SAVE = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model/" \
-             "ae/prototype.pth"
-INPUT_SHAPE = (28, 28)
-INPUT_DIM = 28*28
+             "gpu_ae_prototype.pth"
+INPUT_SHAPE = (64, 64)
+INPUT_DIM = 64*64
 
-model = AutoEncoder(input_shape=INPUT_DIM,output_shape=16)
+model = AutoEncoder(input_shape=INPUT_DIM,output_shape=10)
 model.load_state_dict(torch.load(MODEL_SAVE))
 model.eval()
 
 transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
 
-DATASET_PATH = "/home/anirudh/Desktop/main_dataset/door_8/*.png"
+DATASET_PATH = "/home/anirudh/Desktop/main_dataset/door_5/*.png"
 test_dataset = VisuomotorDataset(DATASET_PATH, transform, INPUT_SHAPE)
 
 test_loader = torch.utils.data.DataLoader(

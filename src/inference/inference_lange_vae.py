@@ -13,15 +13,16 @@ matplotlib.use('TkAgg',warn=False, force=True)
 
 from src.autoencoders.lange_AE import ConvAutoencoder
 from src.dataset_utils.vm_dataset import VisuomotorDataset
+from src.transformation.transformation import CustomTransformation
 
-MODEL_SAVE = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model/" \
-             "lange_vae_14_150_gpu.pth"
+MODEL_SAVE = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model/lange_ae/" \
+             "lange_vae_18_200_gpu.pth"
 
 model = ConvAutoencoder()
 model.load_state_dict(torch.load(MODEL_SAVE))
 model.eval()
 
-transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
+transform = CustomTransformation().get_transformation()
 
 DATASET_PATH = "/home/anirudh/Desktop/main_dataset/**/*.png"
 test_dataset = VisuomotorDataset(DATASET_PATH,transform,(64,64))
@@ -33,7 +34,7 @@ test_loader = torch.utils.data.DataLoader(
 data_iter = iter(test_loader)
 images, labels = data_iter.next()
 
-#Sample outputs
+# Sample outputs
 output = model(images)
 images = images.numpy()
 
@@ -57,3 +58,4 @@ for idx in np.arange(5):
     ax = fig.add_subplot(1, 5, idx+1, xticks=[], yticks=[])
     plt.imshow(output[idx].transpose(1,2,0))
 plt.show()
+

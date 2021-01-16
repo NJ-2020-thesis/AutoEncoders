@@ -21,6 +21,9 @@ class CustomTransformation:
     def transform_data(self, dataset):
         return self.transforms(dataset)
 
+    def get_transformation(self):
+        return self.transforms
+
 
 if __name__ == "__main__":
     print(torchvision.__version__)

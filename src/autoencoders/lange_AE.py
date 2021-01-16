@@ -24,7 +24,7 @@ class ConvAutoencoder(BaseAutoencoder):
         super(ConvAutoencoder, self).__init__()
         self.flatten = Flatten()  # describing the layer
 
-        representation_size = 14
+        representation_size = 18
 
         # encoder layers
         self.conv1 = nn.Conv2d(in_channels=3, out_channels=16, kernel_size=7, padding=1)

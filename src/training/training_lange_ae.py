@@ -12,17 +12,22 @@ matplotlib.use('TkAgg',warn=False, force=True)
 
 from src.autoencoders.lange_AE import ConvAutoencoder
 from src.dataset_utils.vm_dataset import VisuomotorDataset
+from src.transformation.transformation import CustomTransformation
 
-EPOCHS = 150
+# --------------------------------------------------------------
+
+EPOCHS = 50
 INPUT_SIZE = (64,64)
 INPUT_DIMS = INPUT_SIZE[0] * INPUT_SIZE[1]
-BATCH_SIZE = 512
+BATCH_SIZE = 128
 
 DATASET_PATH = "/home/anirudh/Desktop/main_dataset/**/*.png"
-# MODEL_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model/" \
-#              "lange_vae_test_50_gpu.pth"
+MODEL_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model/" \
+             "lange_vae_18_150_gpu.pth"
 MODEL_SAVE = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model/" \
-             "lange_vae_14_150_gpu.pth"
+             "lange_vae_18_200_gpu.pth"
+
+# --------------------------------------------------------------
 
 transform = transforms.Compose([transforms.ToTensor()])
 train_dataset = VisuomotorDataset(DATASET_PATH,transform,INPUT_SIZE)
@@ -36,11 +41,11 @@ print('Number of samples: ', len(train_dataset))
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 vae = ConvAutoencoder().to(device)
-# vae.load_state_dict(torch.load(MODEL_PATH))
+vae.load_state_dict(torch.load(MODEL_PATH))
 
 criterion = nn.MSELoss()
 
-optimizer = optim.Adam(vae.parameters(), lr=0.0003)
+optimizer = optim.Adam(vae.parameters(), lr=0.000003)
 
 l = None
 for epoch in range(EPOCHS):
@@ -48,8 +53,6 @@ for epoch in range(EPOCHS):
         inputs, classes = data
         inputs, classes = inputs.cuda(), classes.cuda()  # add this line
 
-        # inputs, classes = Variable(inputs.resize_(BATCH_SIZE, INPUT_DIMS)), \
-        #                   Variable(classes)
         optimizer.zero_grad()
         outputs = vae(inputs)
         train_loss = criterion(outputs.cuda(), inputs)
@@ -60,8 +63,8 @@ for epoch in range(EPOCHS):
 
 torch.save(vae.state_dict(), MODEL_SAVE)
 
-plt.imshow(vae(inputs.cuda()).cpu().data[5].numpy().reshape(INPUT_SIZE), cmap='gray')
-plt.show(block=True)
+# plt.imshow(vae(inputs.cuda()).cpu().data[5].numpy().reshape(INPUT_SIZE), cmap='gray')
+# plt.show(block=True)
 
 print("--------------------------------------")
 # Print model's state_dict
