@@ -10,7 +10,7 @@ class CustomTransformation:
     def __init__(self):
         torch.manual_seed(12)
         self.transforms = T.RandomApply([
-            T.ToPILImage(),
+            T.ToTensor(),
             T.RandomCrop(224),
             T.RandomHorizontalFlip(p=0.3),
             T.RandomVerticalFlip(p=0.3),

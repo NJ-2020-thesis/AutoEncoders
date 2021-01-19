@@ -14,6 +14,9 @@ from src.autoencoders.spatial_autoencoder import DeepSpatialAutoencoder, DSAE_Lo
 from src.dataset_utils.vm_dataset import VisuomotorDataset
 from src.transformation.transformation import CustomTransformation
 
+from torch.utils.tensorboard import SummaryWriter
+writer = SummaryWriter()
+
 # --------------------------------------------------------------
 EPOCHS = 500
 INPUT_SHAPE = (28, 28)
@@ -27,7 +30,7 @@ MODEL_SAVE_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/
                   "/cnn_ds_vae_small_1000_gpu.pth"
 # ---------------------------------------
 
-transform = transforms.Compose([transforms.ToTensor()])
+transform = CustomTransformation().get_transformation()
 train_dataset = VisuomotorDataset(DATASET_PATH, transform, INPUT_SHAPE)
 
 dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=BATCH_SIZE,
@@ -51,15 +54,18 @@ for epoch in range(EPOCHS):
         optimizer.zero_grad()
         dec = ds_vae(inputs)
         loss,_ = criterion(dec, inputs)
+        writer.add_scalar("Loss/train", loss, epoch)
+
         loss.backward()
         optimizer.step()
         l = loss.item()
+
     print(epoch, l)
 
 torch.save(ds_vae.state_dict(), MODEL_PATH)
 
-plt.imshow(ds_vae(inputs.cuda()).data[5].numpy(), cmap='gray')
-plt.show(block=True)
+# plt.imshow(ds_vae(inputs.cuda()).data[5].numpy(), cmap='gray')
+# plt.show(block=True)
 
 print("--------------------------------------")
 

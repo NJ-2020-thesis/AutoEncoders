@@ -14,6 +14,8 @@ from src.autoencoders.lange_AE import ConvAutoencoder
 from src.dataset_utils.vm_dataset import VisuomotorDataset
 from src.transformation.transformation import CustomTransformation
 
+from torch.utils.tensorboard import SummaryWriter
+writer = SummaryWriter()
 # --------------------------------------------------------------
 
 EPOCHS = 50
@@ -56,6 +58,8 @@ for epoch in range(EPOCHS):
         optimizer.zero_grad()
         outputs = vae(inputs)
         train_loss = criterion(outputs.cuda(), inputs)
+        writer.add_scalar("Loss/train", train_loss, epoch)
+
         train_loss.backward()
         optimizer.step()
         l = train_loss.item()

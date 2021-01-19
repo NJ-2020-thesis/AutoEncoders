@@ -16,8 +16,8 @@ writer = SummaryWriter()
 seed = 42
 torch.manual_seed(seed)
 
-batch_size = 512
-epochs = 500
+batch_size = 32
+epochs = 300
 learning_rate = 1e-3
 
 DATASET_PATH = "/home/anirudh/Desktop/main_dataset/**/*.png"
@@ -28,10 +28,7 @@ MODEL_SAVE_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/
 # --------------------------------------------------------------
 
 transform = CustomTransformation().get_transformation()
-
-
 train_dataset = VisuomotorDataset(DATASET_PATH,transform,(64,64))
-
 train_loader = torch.utils.data.DataLoader(
     train_dataset, batch_size=batch_size, shuffle=True
 )
@@ -44,7 +41,6 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = ConvAutoencoder().to(device)
 
 # create an optimizer object
-# Adam optimizer with learning rate 1e-3
 optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 
 # mean-squared error loss
