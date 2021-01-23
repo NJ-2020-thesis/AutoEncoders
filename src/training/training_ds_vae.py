@@ -56,8 +56,8 @@ for epoch in range(EPOCHS):
 
 torch.save(ds_vae.state_dict(), MODEL_PATH)
 
-plt.imshow(ds_vae(inputs.cuda()).data[5].numpy(), cmap='gray')
-plt.show(block=True)
+# plt.imshow(ds_vae(inputs.cuda()).data[5].numpy(), cmap='gray')
+# plt.show(block=True)
 
 print("--------------------------------------")
 

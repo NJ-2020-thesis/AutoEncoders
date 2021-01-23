@@ -8,7 +8,10 @@ import torchvision
 
 import matplotlib
 import matplotlib.pyplot as plt
-matplotlib.use('TkAgg',warn=False, force=True)
+matplotlib.use('TkAgg', force=True)
+
+import sys
+sys.path.insert(1, '/home/anaras2s/NJ-2020-thesis/AutoEncoders')
 
 from src.autoencoders.basic_autoencoder import AutoEncoder
 from src.dataset_utils.vm_dataset import VisuomotorDataset

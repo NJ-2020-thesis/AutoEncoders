@@ -4,6 +4,9 @@ import torch.optim as optim
 from torch.utils.data import Dataset, DataLoader
 import torchvision
 
+import sys
+sys.path.insert(1, '/home/anaras2s/NJ-2020-thesis/AutoEncoders')
+
 from src.autoencoders.cnn_autoencoder import ConvAutoencoder
 from src.dataset_utils.vm_dataset import VisuomotorDataset
 
@@ -13,13 +16,16 @@ writer = SummaryWriter()
 seed = 42
 torch.manual_seed(seed)
 
-batch_size = 512
+# --------------------------------------------------------------
+batch_size = 32
 epochs = 500
 learning_rate = 1e-3
 
 DATASET_PATH = "/home/anirudh/Desktop/main_dataset/**/*.png"
-MODEL_SAVE_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model/" \
+MODEL_SAVE_PATH = "/home/anirudh/Trained_models/CNN_AE/" \
                   "cnn_ae_500_64.pth"
+
+# --------------------------------------------------------------
 
 transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
 
