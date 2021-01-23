@@ -17,12 +17,12 @@ seed = 42
 torch.manual_seed(seed)
 
 # --------------------------------------------------------------
-batch_size = 32
-epochs = 500
-learning_rate = 1e-3
+BATCH_SIZE = 32
+EPOCHS = 500
+LR = 1e-3
 
-DATASET_PATH = "/home/anirudh/Desktop/main_dataset/**/*.png"
-MODEL_SAVE_PATH = "/home/anirudh/Trained_models/CNN_AE/" \
+DATASET_PATH = "/home/anaras2s/anirudh/main_dataset/**/*.png"
+MODEL_SAVE_PATH = "/home/model/CNN_AE/" \
                   "cnn_ae_500_64.pth"
 
 # --------------------------------------------------------------
@@ -35,7 +35,7 @@ transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
 train_dataset = VisuomotorDataset(DATASET_PATH,transform,(64,64))
 
 train_loader = torch.utils.data.DataLoader(
-    train_dataset, batch_size=batch_size, shuffle=True
+    train_dataset, batch_size=BATCH_SIZE, shuffle=True
 )
 
 #  use gpu if available
@@ -47,12 +47,12 @@ model = ConvAutoencoder().to(device)
 
 # create an optimizer object
 # Adam optimizer with learning rate 1e-3
-optimizer = optim.Adam(model.parameters(), lr=learning_rate)
+optimizer = optim.Adam(model.parameters(), lr=LR)
 
 # mean-squared error loss
 criterion = nn.MSELoss()
 
-for epoch in range(epochs):
+for epoch in range(EPOCHS):
     loss = 0
     for batch_features, _ in train_loader:
         # reshape mini-batch data to [N,c,w,h] matrix
@@ -84,7 +84,7 @@ for epoch in range(epochs):
     loss = loss / len(train_loader)
 
     # display the epoch training loss
-    print("epoch : {}/{}, loss = {:.6f}".format(epoch + 1, epochs, loss))
+    print("epoch : {}/{}, loss = {:.6f}".format(epoch + 1, EPOCHS, loss))
 
 torch.save(model.state_dict(), MODEL_SAVE_PATH)
 

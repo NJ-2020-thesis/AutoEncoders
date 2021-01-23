@@ -10,6 +10,9 @@ import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.use('TkAgg',warn=False, force=True)
 
+import sys
+sys.path.insert(1, '/home/anaras2s/NJ-2020-thesis/AutoEncoders')
+
 from src.autoencoders.spatial_autoencoder import DeepSpatialAutoencoder, DSAE_Loss
 from src.dataset_utils.vm_dataset import VisuomotorDataset
 
@@ -19,9 +22,9 @@ INPUT_SHAPE = (28, 28)
 INPUT_DIMS = INPUT_SHAPE[0] * INPUT_SHAPE[1]
 BATCH_SIZE = 512
 
-DATASET_PATH = "/home/anirudh/Desktop/main_dataset/**/*.png"
-MODEL_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model" \
-                  "/cnn_ds_vae_small_1000_gpu.pth"
+DATASET_PATH = "/home/anaras2s/anirudh/main_dataset/**/*.png"
+MODEL_PATH = "/home/model/DS-VAE/" \
+                  "cnn_ds_vae_small_1000_gpu.pth"
 
 # ---------------------------------------
 

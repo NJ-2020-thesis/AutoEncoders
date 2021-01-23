@@ -10,19 +10,24 @@ import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.use('TkAgg',warn=False, force=True)
 
+import sys
+sys.path.insert(1, '/home/anaras2s/NJ-2020-thesis/AutoEncoders')
+
 from src.autoencoders.lange_AE import ConvAutoencoder
 from src.dataset_utils.vm_dataset import VisuomotorDataset
 
+# --------------------------------------------------------------
 EPOCHS = 150
 INPUT_SIZE = (64,64)
 INPUT_DIMS = INPUT_SIZE[0] * INPUT_SIZE[1]
 BATCH_SIZE = 512
 
-DATASET_PATH = "/home/anirudh/Desktop/main_dataset/**/*.png"
+DATASET_PATH = "/home/anaras2s/anirudh/main_dataset/**/*.png"
 # MODEL_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model/" \
 #              "lange_vae_test_50_gpu.pth"
-MODEL_SAVE = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model/" \
+MODEL_SAVE = "/home/model/Lange-AE/" \
              "lange_vae_14_150_gpu.pth"
+# --------------------------------------------------------------
 
 transform = transforms.Compose([transforms.ToTensor()])
 train_dataset = VisuomotorDataset(DATASET_PATH,transform,INPUT_SIZE)
