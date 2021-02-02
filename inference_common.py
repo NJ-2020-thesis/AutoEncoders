@@ -1,31 +1,49 @@
-import cv2
+from src.autoencoders.lange_AE import LangeConvAutoencoder
+from src.autoencoders.spatial_autoencoder import DeepSpatialAutoencoder
+from src.autoencoders.vae_autoencoder import VAE
 
+import cv2
 import torch
-import torchvision
-from torchvision import transforms
-from torch.utils.data import Dataset, DataLoader
-from torch.autograd import Variable
-import torch.optim as optim
-from torch import nn
+import numpy as np
+from enum import Enum
 
 import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.use('TkAgg',warn=False, force=True)
 
-from src.autoencoders.lange_AE import ConvAutoencoder
-from src.dataset_utils.vm_dataset import VisuomotorDataset
+
+class ModelType(Enum):
+    LangeCNN = 1
+    SpatialAE = 2
+    VAE = 3
 
 
-def get_image_representation(model,img,size=(64,64)):
+def get_image_representation(model_type:ModelType, model_path:str,
+                             img:np.array,size=(64,64)):
     resized_image = cv2.resize(img,size)
-    output, representation = model(resized_image.cuda())
+
+    model = None
+    if model_type == ModelType.LangeCNN:
+        model = LangeConvAutoencoder()
+        model.load_state_dict(torch.load(model_path))
+        model.eval()
+
+    if model_type == ModelType.SpatialAE:
+        model = DeepSpatialAutoencoder()
+        model.load_state_dict(torch.load(model_path))
+        model.eval()
+
+    if model_type == ModelType.VAE:
+        model = VAE(None,None)
+        model.load_state_dict(torch.load(model_path))
+        model.eval()
+
+    with torch.no_grad():
+        output_img, representation = model(resized_image)
 
     return output, representation
 
 
-
-# plt.imshow(vae(inputs.cuda()).cpu().data[5].numpy().reshape(INPUT_SIZE), cmap='gray')
-# plt.show(block=True)
 if __name__=="__main__":
 
     AE_MODEL_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model/" \
@@ -37,5 +55,7 @@ if __name__=="__main__":
     #  use gpu if available
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    output, repr_vec = get_image_representation()
+    output, repr_vec = get_image_representation(ModelType.LangeCNN,
+                                                LANGE_MODEL_PATH,
+                                                )
     plt.imshow()

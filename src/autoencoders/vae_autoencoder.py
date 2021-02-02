@@ -74,7 +74,7 @@ class VAE(torch.nn.Module):
     def forward(self, state):
         h_enc = self.encoder(state)
         z = self._sample_latent(h_enc)
-        return self.decoder(z)
+        return self.decoder(z), z
 
     def latent_loss(self, z_mean, z_stddev):
         mean_sq = z_mean * z_mean

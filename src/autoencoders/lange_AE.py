@@ -18,10 +18,10 @@ class Flatten(nn.Module):
         return input.view(input.size(0), -1)
 
 # define the NN architecture
-class ConvAutoencoder(BaseAutoencoder):
+class LangeConvAutoencoder(BaseAutoencoder):
     def __init__(self):
         super(BaseAutoencoder, self).__init__()
-        super(ConvAutoencoder, self).__init__()
+        super(LangeConvAutoencoder, self).__init__()
         self.flatten = Flatten()  # describing the layer
 
         representation_size = 18
@@ -92,7 +92,7 @@ if __name__ == "__main__":
     # # print(result)
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    model = ConvAutoencoder()
+    model = LangeConvAutoencoder()
     vgg = model.to(device)
 
     summary(vgg, (3, 64, 64))

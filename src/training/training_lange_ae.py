@@ -10,7 +10,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.use('TkAgg',warn=False, force=True)
 
-from src.autoencoders.lange_AE import ConvAutoencoder
+from src.autoencoders.lange_AE import LangeConvAutoencoder
 from src.dataset_utils.vm_dataset import VisuomotorDataset
 from src.transformation.transformation import CustomTransformation
 
@@ -42,7 +42,7 @@ print('Number of samples: ', len(train_dataset))
 #  use gpu if available
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-vae = ConvAutoencoder().to(device)
+vae = LangeConvAutoencoder().to(device)
 vae.load_state_dict(torch.load(MODEL_PATH))
 
 criterion = nn.MSELoss()

@@ -51,9 +51,10 @@ class AutoEncoder(BaseAutoencoder):
     def forward(self, x):
 
         x = self.encode(x)
+        representation = x
         x = self.decode(x)
 
-        return x
+        return x, representation
 
 if __name__ == "__main__":
     random_data = torch.rand((1, 1, 28, 28))
@@ -64,8 +65,4 @@ if __name__ == "__main__":
     my_nn = AutoEncoder(input_shape=784,output_shape=8)
     my_nn.eval()
 
-    my_nn.enc6.register_forward_hook(my_nn.get_activation('enc6'))
-    result = my_nn(flat_data)
-    print(my_nn.activation['enc6'])
-
-    print(my_nn.encode(flat_data))
+    print(my_nn(flat_data))

@@ -11,14 +11,14 @@ import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.use('TkAgg',warn=False, force=True)
 
-from src.autoencoders.lange_AE import ConvAutoencoder
+from src.autoencoders.lange_AE import LangeConvAutoencoder
 from src.dataset_utils.vm_dataset import VisuomotorDataset
 from src.transformation.transformation import CustomTransformation
 
 MODEL_SAVE = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model/lange_ae/" \
              "lange_vae_18_200_gpu.pth"
 
-model = ConvAutoencoder()
+model = LangeConvAutoencoder()
 model.load_state_dict(torch.load(MODEL_SAVE))
 model.eval()
 
