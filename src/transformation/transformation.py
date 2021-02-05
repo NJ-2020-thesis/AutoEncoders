@@ -9,13 +9,13 @@ import torchvision.transforms as T
 class CustomTransformation:
     def __init__(self):
         torch.manual_seed(12)
-        self.transforms = T.RandomApply([
-            T.ToTensor(),
-            T.RandomCrop(224),
+        self.transforms = T.Compose([
+            # T.ToPILImage(),
             T.RandomHorizontalFlip(p=0.3),
             T.RandomVerticalFlip(p=0.3),
             T.ColorJitter(),
-            T.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+            T.ToTensor(),
+            T.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
         ])
 
     def transform_data(self, dataset):
@@ -28,7 +28,7 @@ class CustomTransformation:
 if __name__ == "__main__":
     print(torchvision.__version__)
 
-    random_data = torch.rand((1, 256, 256))
+    random_data = torch.rand((3, 256, 256))
     print(random_data.shape)
 
     transformation = CustomTransformation()

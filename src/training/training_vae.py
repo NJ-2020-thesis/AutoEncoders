@@ -17,10 +17,10 @@ from torch.utils.tensorboard import SummaryWriter
 writer = SummaryWriter()
 # --------------------------------------------------------------
 
-EPOCHS = 100
+EPOCHS = 1
 INPUT_SIZE = (64,64)
 INPUT_DIMS = INPUT_SIZE[0] * INPUT_SIZE[1]
-BATCH_SIZE = 512
+BATCH_SIZE = 64
 
 DATASET_PATH = "/home/anirudh/Desktop/main_dataset/**/*.png"
 MODEL_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model/" \
@@ -68,7 +68,6 @@ for epoch in range(EPOCHS):
     print(epoch, l)
 
 torch.save(vae.state_dict(), MODEL_PATH)
-
 
 print("--------------------------------------")
 # Print model's state_dict

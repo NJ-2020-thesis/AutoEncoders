@@ -20,7 +20,7 @@ class ModelType(Enum):
 
 def get_image_representation(model_type:ModelType, model_path:str,
                              img:np.array,size=(64,64)):
-    resized_image = cv2.resize(img,size)
+    resized_image = torch.rand((1, 3, 64, 64))
 
     model = None
     if model_type == ModelType.LangeCNN:
@@ -41,15 +41,15 @@ def get_image_representation(model_type:ModelType, model_path:str,
     with torch.no_grad():
         output_img, representation = model(resized_image)
 
-    return output, representation
+    return output_img, representation
 
 
 if __name__=="__main__":
 
     AE_MODEL_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model/" \
                  "lange_vae_18_150_gpu.pth"
-    LANGE_MODEL_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model/" \
-                 "lange_vae_18_150_gpu.pth"
+    LANGE_MODEL_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model/lange_ae/" \
+                       "lange_vae_14_300_gpu.pth"
     VAE_MODEL_PATH = ""
 
     #  use gpu if available
@@ -57,5 +57,5 @@ if __name__=="__main__":
 
     output, repr_vec = get_image_representation(ModelType.LangeCNN,
                                                 LANGE_MODEL_PATH,
-                                                )
-    plt.imshow()
+                                                None)
+    print(output.shape,repr_vec.shape)

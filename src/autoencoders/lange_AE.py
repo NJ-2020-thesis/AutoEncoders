@@ -24,7 +24,7 @@ class LangeConvAutoencoder(BaseAutoencoder):
         super(LangeConvAutoencoder, self).__init__()
         self.flatten = Flatten()  # describing the layer
 
-        representation_size = 18
+        representation_size = 14
 
         # encoder layers
         self.conv1 = nn.Conv2d(in_channels=3, out_channels=16, kernel_size=7, padding=1)
@@ -63,6 +63,8 @@ class LangeConvAutoencoder(BaseAutoencoder):
         x = F.relu(self.enc_f4(x))
         x = F.relu(self.enc_f5(x))
 
+        representation = x
+
         ## decode ##
         x = F.relu(self.dec_f1(x))
         x = F.relu(self.dec_f2(x))
@@ -75,7 +77,7 @@ class LangeConvAutoencoder(BaseAutoencoder):
         x = F.relu(self.t_conv2(x))
         x = F.relu(self.t_conv3(x))
 
-        return x
+        return x, representation
 
 
 if __name__ == "__main__":

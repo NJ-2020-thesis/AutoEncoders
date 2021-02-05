@@ -9,7 +9,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.use('TkAgg',warn=False, force=True)
 
-from src.autoencoders.vae_autoencoder import VAE,Encoder,Decoder,latent_loss
+from src.autoencoders.vae_autoencoder import VAE,Encoder,Decoder
 from src.dataset_utils.vm_dataset import VisuomotorDataset
 from src.transformation.transformation import CustomTransformation
 
