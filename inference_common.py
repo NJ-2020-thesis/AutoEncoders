@@ -20,7 +20,7 @@ class ModelType(Enum):
 
 def get_image_representation(model_type:ModelType, model_path:str,
                              img:np.array,size=(64,64)):
-    resized_image = torch.rand((1, 3, 64, 64))
+    resized_image = img
 
     model = None
     if model_type == ModelType.LangeCNN:
@@ -52,10 +52,12 @@ if __name__=="__main__":
                        "lange_vae_14_300_gpu.pth"
     VAE_MODEL_PATH = ""
 
+    resized_image = torch.rand((1, 3, 64, 64))
+
     #  use gpu if available
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     output, repr_vec = get_image_representation(ModelType.LangeCNN,
                                                 LANGE_MODEL_PATH,
-                                                None)
+                                                resized_image)
     print(output.shape,repr_vec.shape)
