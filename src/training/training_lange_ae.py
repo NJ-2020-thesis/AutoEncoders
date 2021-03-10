@@ -1,18 +1,14 @@
+import matplotlib
 import torch
-import torchvision
-from torchvision import transforms
-from torch.utils.data import Dataset, DataLoader
-from torch.autograd import Variable
 import torch.optim as optim
 from torch import nn
+from torch.utils.data import Dataset
+from torchvision import transforms
 
-import matplotlib
-import matplotlib.pyplot as plt
 matplotlib.use('TkAgg',warn=False, force=True)
 
 from src.autoencoders.lange_AE import LangeConvAutoencoder
 from src.dataset_utils.vm_dataset import VisuomotorDataset
-from src.transformation.transformation import CustomTransformation
 
 from torch.utils.tensorboard import SummaryWriter
 writer = SummaryWriter()

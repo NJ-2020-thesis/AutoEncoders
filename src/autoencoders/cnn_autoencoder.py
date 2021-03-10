@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from src.autoencoders.base_autoencoder import BaseAutoencoder
-from src.dataset_utils.vm_dataset import VisuomotorDataset
+
 
 # define the NN architecture
 class ConvAutoencoder(BaseAutoencoder):
@@ -50,11 +50,6 @@ if __name__ == "__main__":
 
     # initialize the NN
     model = ConvAutoencoder()
-    model.conv2.register_forward_hook(model.get_activation('conv2'))
-    print(model)
-
-    for parameter in model.parameters():
-        print(parameter)
 
     result = model(random_data)
     # print(result)

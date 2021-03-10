@@ -1,14 +1,9 @@
 # https://github.com/ethanluoyc/pytorch-vae/blob/master/vae.py
 
-import torch
-from torch.autograd import Variable
 import numpy as np
+import torch
 import torch.nn.functional as F
-import torchvision
-from torchvision import transforms
-import torch.optim as optim
-from torch import nn
-import matplotlib.pyplot as plt
+from torch.autograd import Variable
 
 
 class Normal(object):
@@ -48,14 +43,15 @@ class Decoder(torch.nn.Module):
 
 
 class VAE(torch.nn.Module):
-    latent_dim = 8
 
     def __init__(self, encoder, decoder):
         super(VAE, self).__init__()
+        self.latent_dim = 8
+
         self.encoder = encoder
         self.decoder = decoder
-        self._enc_mu = torch.nn.Linear(100, 16)
-        self._enc_log_sigma = torch.nn.Linear(100, 16)
+        self._enc_mu = torch.nn.Linear(100, self.latent_dim)
+        self._enc_log_sigma = torch.nn.Linear(100, self.latent_dim)
 
     def _sample_latent(self, h_enc):
         """
@@ -81,3 +77,14 @@ class VAE(torch.nn.Module):
         stddev_sq = z_stddev * z_stddev
         return 0.5 * torch.mean(mean_sq + stddev_sq - torch.log(stddev_sq) - 1)
 
+if __name__ == "__main__":
+    input_dim = 64 * 64
+
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+    encoder = Encoder(D_in=input_dim, H=100, D_out=100)
+    decoder = Decoder(8, 100, input_dim)
+    vae = VAE(encoder, decoder).to(device)
+
+    random_data = torch.rand((64, 64))
+    vae(random_data.cuda())

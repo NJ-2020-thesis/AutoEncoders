@@ -7,10 +7,8 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from torchsummary import summary
 
 from src.autoencoders.base_autoencoder import BaseAutoencoder
-from src.dataset_utils.vm_dataset import VisuomotorDataset
 
 
 class Flatten(nn.Module):
@@ -81,21 +79,17 @@ class LangeConvAutoencoder(BaseAutoencoder):
 
 
 if __name__ == "__main__":
-    # random_data = torch.rand((1, 3, 64, 64))
-    # print(random_data.shape)
-    #
-    # # initialize the NN
-    # model = ConvAutoencoder()
-    # # model.conv2.register_forward_hook(model.get_activation('conv2'))
-    # # summary(model, (3, 64, 64))
-    # # print(model)
-    #
-    # result = model(random_data)
-    # # print(result)
+    random_data = torch.rand((1, 3, 64, 64))
+    print(random_data.shape)
 
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    # device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model = LangeConvAutoencoder()
-    vgg = model.to(device)
+    # vgg = model.to(device)
 
-    summary(vgg, (3, 64, 64))
+    # summary(vgg, (3, 64, 64))
+
+    res,_ = model(random_data)
+    print(res.shape)
+
+    print(random_data - res)
 

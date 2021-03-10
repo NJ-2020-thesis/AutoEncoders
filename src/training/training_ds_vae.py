@@ -1,13 +1,7 @@
-import torch
-import torchvision
-from torchvision import transforms
-from torch.autograd import Variable
-import torch.optim as optim
-from torch import nn
-import numpy as np
-
 import matplotlib
-import matplotlib.pyplot as plt
+import torch
+import torch.optim as optim
+
 matplotlib.use('TkAgg',warn=False, force=True)
 
 from src.autoencoders.spatial_autoencoder import DeepSpatialAutoencoder, DSAE_Loss

@@ -3,15 +3,13 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torch.utils.data import Dataset, DataLoader
-import torchvision
-import torchvision.transforms as T
+from torch.utils.data import Dataset
+from torch.utils.tensorboard import SummaryWriter
 
 from src.autoencoders.basic_autoencoder import AutoEncoder
 from src.dataset_utils.vm_dataset import VisuomotorDataset
 from src.transformation.transformation import CustomTransformation
 
-from torch.utils.tensorboard import SummaryWriter
 writer = SummaryWriter()
 
 # --------------------------------------------------------------

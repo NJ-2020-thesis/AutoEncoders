@@ -1,12 +1,8 @@
+import matplotlib
 import torch
-import torchvision
-from torchvision import transforms
-from torch.autograd import Variable
 import torch.optim as optim
 from torch import nn
 
-import matplotlib
-import matplotlib.pyplot as plt
 matplotlib.use('TkAgg',warn=False, force=True)
 
 from src.autoencoders.vae_autoencoder import VAE,Encoder,Decoder
@@ -20,7 +16,7 @@ writer = SummaryWriter()
 EPOCHS = 1
 INPUT_SIZE = (64,64)
 INPUT_DIMS = INPUT_SIZE[0] * INPUT_SIZE[1]
-BATCH_SIZE = 64
+BATCH_SIZE = 32
 
 DATASET_PATH = "/home/anirudh/Desktop/main_dataset/**/*.png"
 MODEL_PATH = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/model/" \
@@ -46,7 +42,7 @@ vae = VAE(encoder, decoder).to(device)
 
 criterion = nn.MSELoss()
 
-optimizer = optim.Adam(vae.parameters(), lr=0.0003)
+optimizer = optim.Adam(vae.parameters(), lr=0.0001)
 
 l = None
 for epoch in range(EPOCHS):
@@ -54,8 +50,6 @@ for epoch in range(EPOCHS):
         inputs, classes = data
         inputs, classes = inputs.cuda(), classes.cuda()  # add this line
 
-        # inputs, classes = Variable(inputs.resize_(BATCH_SIZE, INPUT_DIMS)), \
-        #                   Variable(classes)
         optimizer.zero_grad()
         dec = vae(inputs)
         ll = vae.latent_loss(vae.z_mean, vae.z_sigma)
