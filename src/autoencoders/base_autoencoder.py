@@ -1,9 +1,14 @@
-import torch.nn as nn
+import torch
 
-class BaseAutoencoder(nn.Module):
+from dataset_utils.name_list import *
 
-    def __init__(self):
-        self.activation = {}
 
+class BaseAutoencoder(Module):
+
+    def encode(self):
+        pass
+
+    def decode(self):
+        pass
 
 

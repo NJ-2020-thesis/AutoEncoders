@@ -1,22 +1,13 @@
-from src.autoencoders.lange_AE import LangeConvAutoencoder
-from src.autoencoders.spatial_autoencoder import DeepSpatialAutoencoder
-from src.autoencoders.vae_autoencoder import VAE
+from src.autoencoders.autoencoder import AutoEncoder
+from src.dataset_utils.model_types import ModelType
 
 import cv2
 import torch
 import numpy as np
-from enum import Enum
 
 import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.use('TkAgg',warn=False, force=True)
-
-
-class ModelType(Enum):
-    CNN_AE = 1
-    SpatialAE = 2
-    VAE = 3
-
 
 def get_image_representation(model_type:ModelType,
                              model_path:str,
@@ -30,14 +21,11 @@ def get_image_representation(model_type:ModelType,
     """
 
     model = None
-    if model_type == ModelType.LangeCNN:
-        model = LangeConvAutoencoder()
+    if model_type == ModelType.AE:
+        model = AutoEncoder()
 
-    elif model_type == ModelType.SpatialAE:
-        model = DeepSpatialAutoencoder()
-
-    elif model_type == ModelType.VAE:
-        model = VAE(None,None)
+    elif model_type == ModelType.LangeCNN:
+        pass
 
     model.load_state_dict(torch.load(model_path))
     model.eval()
