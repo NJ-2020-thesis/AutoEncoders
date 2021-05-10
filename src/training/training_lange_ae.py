@@ -43,7 +43,7 @@ vae.load_state_dict(torch.load(MODEL_PATH))
 
 criterion = nn.MSELoss()
 
-optimizer = optim.Adam(vae.parameters(), lr=0.000003)
+optimizer = optim.Adam(vae.parameters(), lr=0.0003)
 
 l = None
 for epoch in range(EPOCHS):

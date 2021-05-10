@@ -34,7 +34,6 @@ class VisuomotorDataset(Dataset):
         current_img_path = self.dataset[idx]
 
         sample = Image.open(current_img_path).convert("RGB")
-        # sample = cv2.resize(sample,self.resize)
         sample = sample.resize(self.resize)
 
         name = os.path.basename(current_img_path)

@@ -13,30 +13,34 @@ matplotlib.use('TkAgg',warn=False, force=True)
 
 
 class ModelType(Enum):
-    LangeCNN = 1
+    CNN_AE = 1
     SpatialAE = 2
     VAE = 3
 
 
-def get_image_representation(model_type:ModelType, model_path:str,
-                             img:np.array,size=(64,64)):
-    resized_image = img
+def get_image_representation(model_type:ModelType,
+                             model_path:str,
+                             img:np.array):
+    """
+    Creates a representation vector from an input image.
+    :param model_type:
+    :param model_path:
+    :param img:
+    :return:
+    """
 
     model = None
     if model_type == ModelType.LangeCNN:
         model = LangeConvAutoencoder()
-        model.load_state_dict(torch.load(model_path))
-        model.eval()
 
-    if model_type == ModelType.SpatialAE:
+    elif model_type == ModelType.SpatialAE:
         model = DeepSpatialAutoencoder()
-        model.load_state_dict(torch.load(model_path))
-        model.eval()
 
-    if model_type == ModelType.VAE:
+    elif model_type == ModelType.VAE:
         model = VAE(None,None)
-        model.load_state_dict(torch.load(model_path))
-        model.eval()
+
+    model.load_state_dict(torch.load(model_path))
+    model.eval()
 
     with torch.no_grad():
         output_img, representation = model(resized_image)

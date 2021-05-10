@@ -173,3 +173,26 @@ class VanillaVAE(nn.Module):
         """
 
         return self.forward(x)[0]
+
+    @classmethod
+    def load_from_checkpoint(cls, checkpoint_path, hparams, map_location=None):
+        """
+        Primary way of loading model from a checkpoint
+        :param checkpoint_path:
+        :param map_location: dic for mapping storage {'cuda:1':'cuda:0'}
+        :return:
+        """
+
+        if map_location is not None:
+            checkpoint = torch.load(checkpoint_path, map_location=map_location)
+        else:
+            checkpoint = torch.load(checkpoint_path, map_location=lambda storage, loc: storage)
+
+        # load the state_dict on the model automatically
+        model = cls(hparams)
+        model.load_state_dict(checkpoint['state_dict'])
+
+        # give model a chance to load something
+        model.on_load_checkpoint(checkpoint)
+
+        return model
