@@ -10,8 +10,9 @@ from dataset_utils.name_list import *
 
 # --------------------MLP Encoder/Decoder-------------------------------
 
+
 class DefaultEncoder(Module):
-    def __init__(self, input_shape, output_shape: int = 8):
+    def __init__(self, input_shape: int = 625, output_shape: int = 8):
         super(DefaultEncoder, self).__init__()
         self.enc1 = nn.Linear(in_features=input_shape, out_features=1024)
         self.enc2 = nn.Linear(in_features=1024, out_features=256)
@@ -32,7 +33,7 @@ class DefaultEncoder(Module):
 
 
 class DefaultDecoder(Module):
-    def __init__(self, input_shape, output_shape: int = 8):
+    def __init__(self, input_shape: int = 8, output_shape: int = 625):
         super(DefaultDecoder, self).__init__()
         self.dec1 = nn.Linear(in_features=input_shape, out_features=32)
         self.dec2 = nn.Linear(in_features=32, out_features=64)
@@ -55,9 +56,8 @@ class DefaultDecoder(Module):
 
 
 class Flatten(nn.Module):
-    def forward(self, input):
-        # return input.view(input.size(0), -1)
-        return input.view(-1)
+    def forward(self, x):
+        return x.view(-1)
 
 class DefaultCNNEncoder(Module):
     def __init__(self, input_channels: int = 3, output_shape:int = 8):
@@ -96,7 +96,7 @@ class DefaultCNNDecoder(Module):
     def __init__(self, output_channels: int = 3, input_shape: int = 8):
         super(DefaultCNNDecoder, self).__init__()
 
-        self.flatten = Flatten()  # describing the layer
+        self.flatten = Flatten()
         self.output_channels = output_channels
 
         # decoder layers
@@ -116,12 +116,10 @@ class DefaultCNNDecoder(Module):
         x = F.relu(self.dec_f4(x))
         x = F.relu(self.dec_f5(x))
 
-        print(x.shape)
-        x = x.reshape([1, 4, 64, 64])
+        x = x.view([-1, 4, 64, 64])
 
         x = F.relu(self.t_conv1(x))
         x = F.relu(self.t_conv2(x))
 
-        print(x.shape)
         return x
 

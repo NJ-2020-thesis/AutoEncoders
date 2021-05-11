@@ -1,5 +1,7 @@
-from src.autoencoders.autoencoder import AutoEncoder
 from src.dataset_utils.model_types import ModelType
+from src.autoencoders.autoencoder import AutoEncoder
+from src.autoencoders.layer_utils import DefaultEncoder, DefaultDecoder, \
+                                                        DefaultCNNEncoder, DefaultCNNDecoder
 
 import cv2
 import torch
@@ -9,29 +11,24 @@ import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.use('TkAgg',warn=False, force=True)
 
+
 def get_image_representation(model_type:ModelType,
                              model_path:str,
                              img:np.array):
-    """
-    Creates a representation vector from an input image.
-    :param model_type:
-    :param model_path:
-    :param img:
-    :return:
-    """
 
     model = None
     if model_type == ModelType.AE:
-        model = AutoEncoder()
-
-    elif model_type == ModelType.LangeCNN:
-        pass
+        model = AutoEncoder(DefaultEncoder(input_shape=625, output_shape=8),
+                            DefaultDecoder(input_shape=8, output_shape=625))
+    elif model_type == ModelType.CNN_AE:
+        model = AutoEncoder(DefaultCNNEncoder(input_channels=3, output_shape=8),
+                            DefaultCNNDecoder(output_channels=3, input_shape=8))
 
     model.load_state_dict(torch.load(model_path))
     model.eval()
 
     with torch.no_grad():
-        output_img, representation = model(resized_image)
+        output_img, representation = model(img)
 
     return output_img, representation
 
