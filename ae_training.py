@@ -74,10 +74,11 @@ class AEXperiment(pl.LightningModule):
         self.curr_device = real_img.device
 
         results = self.forward(real_img, labels=labels)
-        val_loss = self.model.loss_function(*results,
-                                            M_N=self.batch_size / self.num_val_imgs,
-                                            optimizer_idx=optimizer_idx,
-                                            batch_idx=batch_idx)
+        # val_loss = self.model.loss_function(*results,
+        #                                     M_N=self.batch_size / self.num_val_imgs,
+        #                                     optimizer_idx=optimizer_idx,
+        #                                     batch_idx=batch_idx)
+        val_loss = self.model.loss(real_img, results)
 
         return val_loss
 

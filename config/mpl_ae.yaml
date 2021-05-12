@@ -1,0 +1,12 @@
+model:
+  representation_size: 8,
+  encoder:
+    input_shape: 625,
+  decoder:
+    output_shape: 625,
+
+trainer:
+  dataset_path: '',
+  batch_size: 512,
+  epochs: 50,
+  learning_rate: 1e-4,
