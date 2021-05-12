@@ -20,21 +20,21 @@ class AutoEncoder(BaseAutoencoder):
 
         self.latent_dim = latent_dim
 
-    def encode(self, x):
+    def encode(self, x: Tensor):
         latent_vec = self.encoder(x)
         return latent_vec
 
-    def decode(self, z):
+    def decode(self, z: Tensor):
         output = self.decoder(z)
         return output
 
-    def forward(self, x):
+    def forward(self, x: Tensor):
         latent_vec = self.encode(x)
         x = self.decode(latent_vec)
         return x, latent_vec
 
     @staticmethod
-    def loss(x, x_dash):
+    def loss(x: Tensor, x_dash: Tensor):
         criterion = nn.MSELoss()
         train_loss = criterion(x, x_dash)
         return [train_loss]

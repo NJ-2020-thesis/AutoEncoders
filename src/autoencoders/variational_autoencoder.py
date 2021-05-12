@@ -8,10 +8,10 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.autograd import Variable
 
-from dataset_utils.name_list import *
+from src.dataset_utils.name_list import *
 
 
-class VariationalAutoEncoder:
+class VariationalAutoEncoder(Module):
     def __init__(self, encoder, decoder, latent_dim: int = 8):
         super(VariationalAutoEncoder, self).__init__()
         self.latent_dim = latent_dim
@@ -21,12 +21,18 @@ class VariationalAutoEncoder:
         self._enc_mu = torch.nn.Linear(100, self.latent_dim)
         self._enc_log_sigma = torch.nn.Linear(100, self.latent_dim)
 
+    def encode(self, x: Tensor):
+        pass
+
+    def decode(self, x: Tensor):
+        pass
+
     def forward(self, x: Tensor):
         h_enc = self.encoder(x)
-        z = self._sample_latent(h_enc)
+        z = self.__sample_latent(h_enc)
         return self.decoder(z), z
 
-    def _sample_latent(self, h_enc):
+    def __sample_latent(self, h_enc):
         mu = self._enc_mu(h_enc)
         log_sigma = self._enc_log_sigma(h_enc)
         sigma = torch.exp(log_sigma)

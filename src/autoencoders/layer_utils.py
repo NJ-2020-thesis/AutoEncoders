@@ -8,6 +8,7 @@ import torch.nn.functional as F
 
 from dataset_utils.name_list import *
 
+
 # --------------------MLP Encoder/Decoder-------------------------------
 
 
@@ -52,6 +53,7 @@ class DefaultDecoder(Module):
 
         return x
 
+
 # --------------------CNN Encoder/Decoder--------------------------------
 
 
@@ -59,8 +61,9 @@ class Flatten(nn.Module):
     def forward(self, x):
         return x.view(-1)
 
+
 class DefaultCNNEncoder(Module):
-    def __init__(self, input_channels: int = 3, output_shape:int = 8):
+    def __init__(self, input_channels: int = 3, output_shape: int = 8):
         super(DefaultCNNEncoder, self).__init__()
 
         self.flatten = Flatten()  # describing the layer
@@ -122,4 +125,3 @@ class DefaultCNNDecoder(Module):
         x = F.relu(self.t_conv2(x))
 
         return x
-

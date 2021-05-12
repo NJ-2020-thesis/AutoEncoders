@@ -24,13 +24,14 @@ warnings.filterwarnings("ignore")
 class VisuomotorDataset(Dataset):
     """ Visuomotor Dataset Class"""
 
-    def __init__(self, root_dir, transform=None, resize = (64,64)):
+    def __init__(self, root_dir, transform=None, resize=(64, 64)):
         self.root_dir = root_dir
         self.transform = transform
-        self.dataset = glob.glob(root_dir,recursive=True)
+        self.dataset = glob.glob(root_dir, recursive=True)
         self.resize = resize
 
     def __getitem__(self, idx):
+        dataset = torch.utils.data.ConcatDataset([self.dataset, self.dataset])
         current_img_path = self.dataset[idx]
 
         sample = Image.open(current_img_path).convert("RGB")
@@ -49,6 +50,6 @@ class VisuomotorDataset(Dataset):
 
 if __name__ == "__main__":
     PATH = "/home/anirudh/Desktop/main_dataset/**/*.png"
-    vm_dataset = VisuomotorDataset(PATH,None,(32,32))
+    vm_dataset = VisuomotorDataset(PATH, None)
     print(len(vm_dataset))
     img = vm_dataset[5]

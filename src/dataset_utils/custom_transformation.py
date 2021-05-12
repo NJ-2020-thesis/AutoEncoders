@@ -1,6 +1,3 @@
-# https://github.com/pytorch/vision/blob/master/examples/python/tensor_transforms.ipynb
-# https://pytorch.org/docs/stable/torchvision/transforms.html
-
 import torch
 import torchvision
 import torchvision.transforms as T
@@ -23,14 +20,3 @@ class CustomTransformation:
 
     def get_transformation(self):
         return self.transforms
-
-
-if __name__ == "__main__":
-    print(torchvision.__version__)
-
-    random_data = torch.rand((3, 256, 256))
-    print(random_data.shape)
-
-    transformation = CustomTransformation()
-    transformed_data = transformation.transform_data(random_data)
-    print(transformed_data.shape)

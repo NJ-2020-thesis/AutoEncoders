@@ -4,14 +4,14 @@ from torchsummary import summary
 import unittest
 from src.autoencoders.autoencoder import AutoEncoder
 from src.autoencoders.layer_utils import DefaultEncoder, DefaultDecoder, \
-                                                        DefaultCNNEncoder, DefaultCNNDecoder
+    DefaultCNNEncoder, DefaultCNNDecoder
 
 
 class LayerTest(unittest.TestCase):
 
     # @unittest.skip("Skipping MPL Layer Test")
     def test_mlp_encoder_decoder(self):
-        random_input = torch.rand(625) #25x25
+        random_input = torch.rand(625)  # 25x25
         random_output = torch.rand(8)
 
         encoder = DefaultEncoder(input_shape=625, output_shape=8)
@@ -30,3 +30,7 @@ class LayerTest(unittest.TestCase):
 
         self.assertEqual(encoder(random_input).shape, torch.Size([8]), 'CNN encoder error!')
         # self.assertEqual (decoder(random_output).shape, torch.Size([1,3,256,256]), 'CNN decoder error!')
+
+
+if __name__ == '__main__':
+    unittest.main()
