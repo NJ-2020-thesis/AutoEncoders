@@ -7,7 +7,7 @@ import torch.optim as optim
 import torch.nn.functional as F
 
 from src.autoencoders.base_autoencoder import BaseAutoencoder
-from src.dataset_utils.name_list import *
+from src.utils.name_list import *
 
 
 class AutoEncoder(BaseAutoencoder):
@@ -19,6 +19,7 @@ class AutoEncoder(BaseAutoencoder):
         self.decoder = decoder
 
         self.latent_dim = latent_dim
+        self.criterion = nn.MSELoss()
 
     def encode(self, x: Tensor):
         latent_vec = self.encoder(x)
@@ -33,8 +34,6 @@ class AutoEncoder(BaseAutoencoder):
         x = self.decode(latent_vec)
         return x, latent_vec
 
-    @staticmethod
-    def loss(x: Tensor, x_dash: Tensor):
-        criterion = nn.MSELoss()
-        train_loss = criterion(x, x_dash)
-        return [train_loss]
+    def loss(self, x: Tensor, x_dash: Tensor):
+        train_loss = self.criterion(x, x_dash)
+        return train_loss

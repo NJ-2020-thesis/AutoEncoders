@@ -2,7 +2,7 @@ import torch
 
 import unittest
 
-from src.dataset_utils.model_types import ModelType
+from src.utils.model_types import ModelType
 from ae_inference import get_image_representation
 
 

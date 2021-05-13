@@ -8,7 +8,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.autograd import Variable
 
-from src.dataset_utils.name_list import *
+from src.utils.name_list import *
 
 
 class VariationalAutoEncoder(Module):

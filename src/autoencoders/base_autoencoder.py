@@ -1,6 +1,6 @@
 import torch
 
-from dataset_utils.name_list import *
+from utils.name_list import *
 
 
 class BaseAutoencoder(Module):

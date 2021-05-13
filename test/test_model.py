@@ -26,9 +26,6 @@ class ModelTest(unittest.TestCase):
         self.assertEqual(z.shape == torch.Size([8]), "CNN_AE model representation error!")
         self.assertEqual(x_reconstruction.shape == torch.Size([1, 3, 256, 256]), "CNN_AE model reconstruction error!")
 
-    def test_model_factory(self):
-        pass
-
 
 if __name__ == '__main__':
     unittest.main()

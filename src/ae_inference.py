@@ -1,4 +1,4 @@
-from src.dataset_utils.model_types import ModelType
+from src.utils.model_types import ModelType
 from src.autoencoders.autoencoder import AutoEncoder
 from src.autoencoders.layer_utils import DefaultEncoder, DefaultDecoder, \
     DefaultCNNEncoder, DefaultCNNDecoder

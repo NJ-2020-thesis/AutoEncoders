@@ -9,4 +9,6 @@ trainer:
   dataset_path: '',
   batch_size: 512,
   epochs: 50,
-  learning_rate: 1e-4,
+  optimizer:
+    learning_rate: 1e-4,
+    weight_decay: 0.0,

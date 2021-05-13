@@ -6,7 +6,7 @@ import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 
-from dataset_utils.name_list import *
+from utils.name_list import *
 
 
 # --------------------MLP Encoder/Decoder-------------------------------
@@ -113,8 +113,8 @@ class DefaultCNNDecoder(Module):
         self.dec_f4 = nn.Linear(in_features=128, out_features=256)
         self.dec_f5 = nn.Linear(in_features=256, out_features=4*self.output_size[0]*self.output_size[1])
 
-        self.t_conv1 = nn.ConvTranspose2d(in_channels=4, out_channels=16, kernel_size=2, stride=2)
-        self.t_conv2 = nn.ConvTranspose2d(in_channels=16, out_channels=self.output_channels, kernel_size=2, stride=2)
+        self.t_conv1 = nn.ConvTranspose2d(in_channels=4, out_channels=16, kernel_size=3, padding=1)
+        self.t_conv2 = nn.ConvTranspose2d(in_channels=16, out_channels=self.output_channels, kernel_size=3, padding=1)
 
     def forward(self, x):
         batch_size = x.size(0)

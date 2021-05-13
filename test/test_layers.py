@@ -22,14 +22,14 @@ class LayerTest(unittest.TestCase):
 
     # @unittest.skip("Skipping CNN Layer Tests")
     def test_cnn_encoder_decoder(self):
-        random_input = torch.rand((10, 3, 80, 80))
+        random_input = torch.rand((10, 3, 64, 64))
         random_output = torch.rand(10, 8)
 
-        encoder = DefaultCNNEncoder(input_channels=3, input_size=(80, 80), output_shape=8)
-        decoder = DefaultCNNDecoder(output_channels=3, output_size=(80, 80), input_shape=8)
+        encoder = DefaultCNNEncoder(input_channels=3, input_size=(64, 64), output_shape=8)
+        decoder = DefaultCNNDecoder(output_channels=3, output_size=(64, 64), input_shape=8)
 
         self.assertEqual(encoder(random_input).shape, torch.Size([10, 8]), 'CNN encoder error!')
-        self.assertEqual(decoder(random_output).shape, torch.Size([10, 3, 320, 320]), 'CNN decoder error!')
+        self.assertEqual(decoder(random_output).shape, torch.Size([10, 3, 64, 64]), 'CNN decoder error!')
 
 
 if __name__ == '__main__':
