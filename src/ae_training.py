@@ -1,24 +1,23 @@
 import matplotlib
-import matplotlib.pyplot as plt
-
-import torch
-from torch.utils.data import Dataset, DataLoader
-
 import pytorch_lightning as pl
+from torch.utils.data import DataLoader
 
 from src.autoencoders.model_factory import ModelFactory
-from src.utils.custom_transformation import CustomTransformation
+from src.utils.transform_utils import CustomTransformation
 from src.utils.model_types import ModelType
-from src.utils.vmp_dataset import VisuomotorDataset
 from src.utils.name_list import *
+from src.utils.vmp_dataset import VisuomotorDataset
 
 matplotlib.use('TkAgg', warn=False, force=True)
 
 seed = 42
 torch.manual_seed(seed)
 
-class AEXperiment(pl.LightningModule):
 
+class AEXperiment(pl.LightningModule):
+    """
+    Pytorch Lightning module for training autoencoders.
+    """
     def __init__(self,
                  model_type: ModelType,
                  dataset_path: str,
@@ -26,7 +25,6 @@ class AEXperiment(pl.LightningModule):
                  epochs: int = 50,
                  learning_rate: float = 1e-4,
                  dataset_img_size: tuple = (64, 64)) -> None:
-
         super(AEXperiment, self).__init__()
 
         self.model_factory = ModelFactory()
@@ -74,10 +72,10 @@ class AEXperiment(pl.LightningModule):
                                           self.transform,
                                           self.dataset_img_size)
 
-        self.train_loader = torch.utils.data.DataLoader(train_dataset,
-                                                        batch_size=self.batch_size,
-                                                        shuffle=True,
-                                                        num_workers=4)
+        self.train_loader = DataLoader(train_dataset,
+                                       batch_size=self.batch_size,
+                                       shuffle=True,
+                                       num_workers=4)
         self.num_train_imgs = len(self.train_loader)
         return self.train_loader
 
@@ -86,10 +84,10 @@ class AEXperiment(pl.LightningModule):
                                         self.transform,
                                         self.dataset_img_size)
 
-        self.val_loader = torch.utils.data.DataLoader(val_dataset,
-                                                      batch_size=self.batch_size,
-                                                      shuffle=True,
-                                                      num_workers=4)
+        self.val_loader = DataLoader(val_dataset,
+                                     batch_size=self.batch_size,
+                                     shuffle=True,
+                                     num_workers=4)
         self.num_val_imgs = len(self.val_loader)
         return self.val_loader
 

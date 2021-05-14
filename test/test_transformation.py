@@ -1,7 +1,7 @@
 import torch
 
 import unittest
-from src.utils.custom_transformation import CustomTransformation
+from src.utils.transform_utils import CustomTransformation
 
 
 class TransformationTest(unittest.TestCase):

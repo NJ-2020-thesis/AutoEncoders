@@ -22,7 +22,7 @@ class DefaultEncoder(Module):
         self.enc5 = nn.Linear(in_features=64, out_features=32)
         self.enc6 = nn.Linear(in_features=32, out_features=output_shape)
 
-    def forward(self, x):
+    def forward(self, x: Tensor):
         x = F.relu(self.enc1(x))
         x = F.relu(self.enc2(x))
         x = F.relu(self.enc3(x))
@@ -43,7 +43,7 @@ class DefaultDecoder(Module):
         self.dec5 = nn.Linear(in_features=256, out_features=1024)
         self.dec6 = nn.Linear(in_features=1024, out_features=output_shape)
 
-    def forward(self, x):
+    def forward(self, x: Tensor):
         x = F.relu(self.dec1(x))
         x = F.relu(self.dec2(x))
         x = F.relu(self.dec3(x))
@@ -57,8 +57,9 @@ class DefaultDecoder(Module):
 # --------------------CNN Encoder/Decoder--------------------------------
 
 
-class Flatten(nn.Module):
-    def forward(self, x):
+class Flatten(Module):
+    @staticmethod
+    def forward(self, x: Tensor):
         batch_size = x.size(0)
         return x.view(batch_size, -1)
 
@@ -82,7 +83,7 @@ class DefaultCNNEncoder(Module):
         self.enc_f4 = nn.Linear(in_features=64, out_features=32)
         self.enc_f5 = nn.Linear(in_features=32, out_features=output_shape)
 
-    def forward(self, x):
+    def forward(self, x: Tensor):
 
         x = F.relu(self.conv1(x))
         x = F.relu(self.conv2(x))
@@ -116,7 +117,7 @@ class DefaultCNNDecoder(Module):
         self.t_conv1 = nn.ConvTranspose2d(in_channels=4, out_channels=16, kernel_size=3, padding=1)
         self.t_conv2 = nn.ConvTranspose2d(in_channels=16, out_channels=self.output_channels, kernel_size=3, padding=1)
 
-    def forward(self, x):
+    def forward(self, x: Tensor):
         batch_size = x.size(0)
 
         x = F.relu(self.dec_f1(x))
