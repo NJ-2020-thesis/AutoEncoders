@@ -58,7 +58,6 @@ class DefaultDecoder(Module):
 
 
 class Flatten(Module):
-    @staticmethod
     def forward(self, x: Tensor):
         batch_size = x.size(0)
         return x.view(batch_size, -1)

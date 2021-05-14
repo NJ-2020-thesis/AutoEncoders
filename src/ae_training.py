@@ -2,12 +2,10 @@ import matplotlib
 import pytorch_lightning as pl
 from torch.utils.data import DataLoader
 
-from src.autoencoders.model_factory import ModelFactory
-from src.utils.transform_utils import CustomTransformation
 from src.utils.model_types import ModelType
 from src.utils.name_list import *
 from src.utils.vmp_dataset import VisuomotorDataset
-
+from src.utils.instance_provider import InstanceProvider
 matplotlib.use('TkAgg', warn=False, force=True)
 
 seed = 42
@@ -19,24 +17,22 @@ class AEXperiment(pl.LightningModule):
     Pytorch Lightning module for training autoencoders.
     """
     def __init__(self,
-                 model_type: ModelType,
-                 dataset_path: str,
-                 batch_size: int = 512,
-                 epochs: int = 50,
-                 learning_rate: float = 1e-4,
-                 dataset_img_size: tuple = (64, 64)) -> None:
+                 config_path: str,
+                 model_type: ModelType
+                 ) -> None:
         super(AEXperiment, self).__init__()
 
-        self.model_factory = ModelFactory()
-        self.dataset_path = dataset_path
-        self.model = self.model_factory.get_model(model_type)
+        self.instance_provider = InstanceProvider(config_path, model_type)
 
-        self.batch_size = batch_size
-        self.epochs = epochs
-        self.learning_rate = learning_rate
-        self.dataset_img_size = dataset_img_size
+        self.dataset_path = self.instance_provider.h_dataset_path
+        self.model = self.instance_provider.model
 
-        self.transform = CustomTransformation().get_transformation()
+        self.batch_size = self.instance_provider.h_batch_size
+        self.epochs = self.instance_provider.h_epochs
+        self.learning_rate = self.instance_provider.h_learning_rate
+        self.dataset_img_size = self.instance_provider.h_img_size
+
+        self.transform = self.instance_provider.transformation
 
         self.curr_device = None
         self.train_loader, self.val_loader = None, None
@@ -64,7 +60,7 @@ class AEXperiment(pl.LightningModule):
         return val_loss
 
     def configure_optimizers(self):
-        optimizer = torch.optim.Adam(self.model.parameters(), lr=0.003)
+        optimizer = torch.optim.Adam(self.model.parameters(), lr=self.learning_rate)
         return optimizer
 
     def train_dataloader(self):
@@ -95,9 +91,8 @@ class AEXperiment(pl.LightningModule):
 if __name__ == "__main__":
     DATASET_PATH = "/home/anirudh/Desktop/main_dataset/**/*.png"
 
-    model_trainer = AEXperiment(model_type=ModelType.CNN_AE,
-                                dataset_path=DATASET_PATH,
-                                dataset_img_size=(64, 64))
+    model_trainer = AEXperiment(config_path="./config/cnn_ae.yaml",
+                                model_type=ModelType.CNN_AE)
     trainer = pl.Trainer(gpus=1)
     trainer.fit(model_trainer,
                 model_trainer.train_dataloader(),

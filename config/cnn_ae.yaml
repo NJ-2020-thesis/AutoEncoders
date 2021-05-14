@@ -5,7 +5,10 @@ model:
   decoder:
     output_channels: 3
 trainer:
-  dataset_path: 'vsg'
+  dataset_path: '/home/anirudh/Desktop/main_dataset/**/*.png'
+  img_size:
+    x: 64
+    y: 64
   batch_size: 512
   epochs: 50
   optimizer:
