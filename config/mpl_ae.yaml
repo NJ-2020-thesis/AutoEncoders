@@ -1,10 +1,9 @@
 model:
-  representation_size: 8,
+  representation_size: 8
   encoder:
-    input_shape: 625,
+    input_shape: 625
   decoder:
-    output_shape: 625,
-
+    output_shape: 625
 trainer:
   dataset_path: '/home/anirudh/Desktop/main_dataset/**/*.png'
   img_size:

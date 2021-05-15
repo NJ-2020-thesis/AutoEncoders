@@ -1,4 +1,3 @@
-import torch
 import warnings
 
 import torch
@@ -31,7 +30,7 @@ class ModelFactory:
                                                     output_shape=self.data_loaded['model']['representation_size']),
                                      DefaultDecoder(input_shape=self.data_loaded['model']['representation_size'],
                                                     output_shape=self.data_loaded['model']['decoder'][
-                                                        'input_shape'])).to(device)
+                                                        'output_shape'])).to(device)
         elif model_type == ModelType.CNN_AE:
             self.model = AutoEncoder(
                 DefaultCNNEncoder(input_channels=self.data_loaded['model']['encoder']['input_channels'],

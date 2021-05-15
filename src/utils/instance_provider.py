@@ -1,5 +1,3 @@
-from pprint import pprint
-
 import yaml
 
 from src.autoencoders.model_factory import ModelFactory
@@ -16,8 +14,6 @@ class InstanceProvider:
     def __init__(self, path: str, model_type: ModelType):
         with open(path, 'r') as stream:
             data_loaded = yaml.safe_load(stream)
-
-        pprint(data_loaded['model']['encoder'])
 
         # Setting training hyper-parameters
         self.h_dataset_path = data_loaded['trainer']['dataset_path']

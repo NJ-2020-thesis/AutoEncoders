@@ -1,4 +1,3 @@
-import matplotlib
 import numpy as np
 import torch
 
@@ -11,7 +10,11 @@ def get_image_representation(model_type: ModelType,
                              model_path: str,
                              img: np.array):
     ae_inference = AEXperiment(config_path, model_type)
-    ae_inference.load_state_dict(torch.load(model_path))
+
+    # Skips during testing
+    if model_path:
+        ae_inference.load_state_dict(torch.load(model_path))
+
     ae_inference.eval()
 
     with torch.no_grad():

@@ -100,10 +100,10 @@ class AEXperiment(pl.LightningModule):
                          self.train_dataloader(),
                          self.val_dataloader())
 
+
 if __name__ == "__main__":
     DATASET_PATH = "/home/anirudh/Desktop/main_dataset/**/*.png"
 
     model_trainer = AEXperiment(config_path="./config/cnn_ae.yaml",
                                 model_type=ModelType.CNN_AE)
     model_trainer.train_model()
-
