@@ -8,7 +8,7 @@ The pipeline is designed to read a config file to dynamically generate the relav
 <!-- Dataset -->
 <h2 id="Dataset"> :scroll: Dataset</h2>
 
-The dataset is the 
+The dataset used for testing consists of images captured from the wrist camera of a Kinova3 robot arm inside a coppeliaSim environment. 
 
 
 
@@ -32,4 +32,4 @@ The dataset is the
 <h2 id="References"> :scroll: References</h2>
 
 1. https://discuss.pytorch.org/t/model-eval-vs-with-torch-no-grad/19615/10
-
+2. https://github.com/ma-shamshiri/Human-Activity-Recognition/blob/main/README.md
