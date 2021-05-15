@@ -25,6 +25,7 @@ class AEXperiment(pl.LightningModule):
                  ) -> None:
         super(AEXperiment, self).__init__()
 
+        # Using dependency injection to generate objects outside the class
         self.instance_provider = InstanceProvider(config_path, model_type)
 
         self.dataset_path = self.instance_provider.h_dataset_path

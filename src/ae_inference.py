@@ -1,6 +1,6 @@
 from src.utils.model_types import ModelType
 from src.autoencoders.autoencoder import AutoEncoder
-from src.autoencoders.layer_utils import DefaultEncoder, DefaultDecoder, \
+from src.autoencoders.custom_layers import DefaultEncoder, DefaultDecoder, \
     DefaultCNNEncoder, DefaultCNNDecoder
 from src.autoencoders.model_factory import ModelFactory
 
