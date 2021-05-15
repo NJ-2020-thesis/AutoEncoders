@@ -4,7 +4,7 @@ This project aims to create a modular Autoencoder training and inference pipelin
 
 The pipeline is designed to read a config file to dynamically generate the relavant input, output layer dimensions along with bottleneck layer size.
 
-=======
+
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 <!-- Dataset -->
 <h2 id="Dataset"> :scroll: Dataset</h2>
