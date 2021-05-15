@@ -27,6 +27,7 @@ class InstanceProvider:
         self.h_weight_decay = data_loaded['trainer']['optimizer']['weight_decay']
         self.h_img_size = (int(data_loaded['trainer']['img_size']['x']),
                            int(data_loaded['trainer']['img_size']['y']))
+        self.h_gpu = int(data_loaded['trainer']['gpu'])
 
         # Dataset transformation
         self.transformation = CustomTransformation().get_transformation()

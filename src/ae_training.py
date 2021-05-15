@@ -30,13 +30,16 @@ class AEXperiment(pl.LightningModule):
 
         self.dataset_path = self.instance_provider.h_dataset_path
         self.model = self.instance_provider.model
+        self.transform = self.instance_provider.transformation
 
+        self.trainer: pl.Trainer = None
+
+        # Setting hyperparmas from config
         self.batch_size = self.instance_provider.h_batch_size
         self.epochs = self.instance_provider.h_epochs
         self.learning_rate = self.instance_provider.h_learning_rate
         self.dataset_img_size = self.instance_provider.h_img_size
-
-        self.transform = self.instance_provider.transformation
+        self.gpu = self.instance_provider.h_gpu
 
         self.curr_device = None
         self.train_loader, self.val_loader = None, None
@@ -91,13 +94,16 @@ class AEXperiment(pl.LightningModule):
         self.num_val_imgs = len(self.val_loader)
         return self.val_loader
 
+    def train_model(self):
+        self.trainer = pl.Trainer(gpus=self.gpu, max_epochs=self.epochs)
+        self.trainer.fit(self,
+                         self.train_dataloader(),
+                         self.val_dataloader())
 
 if __name__ == "__main__":
     DATASET_PATH = "/home/anirudh/Desktop/main_dataset/**/*.png"
 
     model_trainer = AEXperiment(config_path="./config/cnn_ae.yaml",
                                 model_type=ModelType.CNN_AE)
-    trainer = pl.Trainer(gpus=1)
-    trainer.fit(model_trainer,
-                model_trainer.train_dataloader(),
-                model_trainer.val_dataloader())
+    model_trainer.train_model()
+

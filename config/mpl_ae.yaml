@@ -6,9 +6,13 @@ model:
     output_shape: 625,
 
 trainer:
-  dataset_path: '',
-  batch_size: 512,
-  epochs: 50,
+  dataset_path: '/home/anirudh/Desktop/main_dataset/**/*.png'
+  img_size:
+    x: 64
+    y: 64
+  batch_size: 512
+  epochs: 50
+  gpu: 1
   optimizer:
-    learning_rate: 1e-4,
-    weight_decay: 0.0,
+    learning_rate: 1e-4
+    weight_decay: 0.0

@@ -1,3 +1,5 @@
+# https://neptune.ai/blog/pytorch-lightning-neptune-integration
+
 from pytorch_lightning.loggers.neptune import NeptuneLogger
 
 
