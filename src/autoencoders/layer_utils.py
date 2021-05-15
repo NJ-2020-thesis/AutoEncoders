@@ -76,14 +76,13 @@ class DefaultCNNEncoder(Module):
 
         # Input shape based on image size and output
         # channels from conv layer after flattening
-        self.enc_f1 = nn.Linear(in_features=4*input_size[0]*input_size[1], out_features=256)
+        self.enc_f1 = nn.Linear(in_features=4 * input_size[0] * input_size[1], out_features=256)
         self.enc_f2 = nn.Linear(in_features=256, out_features=128)
         self.enc_f3 = nn.Linear(in_features=128, out_features=64)
         self.enc_f4 = nn.Linear(in_features=64, out_features=32)
         self.enc_f5 = nn.Linear(in_features=32, out_features=output_shape)
 
     def forward(self, x: Tensor):
-
         x = F.relu(self.conv1(x))
         x = F.relu(self.conv2(x))
         x = self.flatten(x)
@@ -111,7 +110,7 @@ class DefaultCNNDecoder(Module):
         self.dec_f2 = nn.Linear(in_features=32, out_features=64)
         self.dec_f3 = nn.Linear(in_features=64, out_features=128)
         self.dec_f4 = nn.Linear(in_features=128, out_features=256)
-        self.dec_f5 = nn.Linear(in_features=256, out_features=4*self.output_size[0]*self.output_size[1])
+        self.dec_f5 = nn.Linear(in_features=256, out_features=4 * self.output_size[0] * self.output_size[1])
 
         self.t_conv1 = nn.ConvTranspose2d(in_channels=4, out_channels=16, kernel_size=3, padding=1)
         self.t_conv2 = nn.ConvTranspose2d(in_channels=16, out_channels=self.output_channels, kernel_size=3, padding=1)

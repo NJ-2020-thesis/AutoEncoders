@@ -9,13 +9,14 @@ from src.autoencoders.autoencoder import AutoEncoder
 from src.autoencoders.layer_utils import DefaultEncoder, DefaultDecoder, \
     DefaultCNNEncoder, DefaultCNNDecoder
 
+
 class InstanceProvider:
     """
-    Dependency injection module
+    Dependency injection module for
+    creating classes from a config file
     """
 
     def __init__(self, path: str, model_type: ModelType):
-
         with open(path, 'r') as stream:
             data_loaded = yaml.safe_load(stream)
 
@@ -28,7 +29,7 @@ class InstanceProvider:
         self.h_learning_rate = float(data_loaded['trainer']['optimizer']['learning_rate'])
         self.h_weight_decay = data_loaded['trainer']['optimizer']['weight_decay']
         self.h_img_size = (int(data_loaded['trainer']['img_size']['x']),
-                         int(data_loaded['trainer']['img_size']['y']))
+                           int(data_loaded['trainer']['img_size']['y']))
 
         # Dataset transformation
         self.transformation = CustomTransformation().get_transformation()
@@ -36,4 +37,3 @@ class InstanceProvider:
         # Generating the model
         model_factory = ModelFactory(data_loaded)
         self.model = model_factory.get_model(model_type)
-

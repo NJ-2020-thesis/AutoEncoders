@@ -1,15 +1,16 @@
 import unittest
 
 from src.utils.model_types import ModelType
-from src.utils.instance_provider import ObjectGeneration
+from src.utils.instance_provider import InstanceProvider
 
 
 class ObjectGenerationTest(unittest.TestCase):
 
     def test_object_generation(self):
-        path = "/home/anirudh/HBRS/Master-Thesis/NJ-2020-thesis/AutoEncoders/config/cnn_ae.yaml"
+        path = "../config/cnn_ae.yaml"
 
-        obj_gen = ObjectGeneration(path)
+        obj_gen = InstanceProvider(path, ModelType.CNN_AE)
+
 
 if __name__ == "__main__":
     unittest.main()

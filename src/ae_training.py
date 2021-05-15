@@ -4,11 +4,13 @@ from torch.utils.data import DataLoader
 
 from src.utils.model_types import ModelType
 from src.utils.name_list import *
-from src.utils.vmp_dataset import VisuomotorDataset
+from src.dataset.vmp_dataset import VisuomotorDataset
 from src.utils.instance_provider import InstanceProvider
+
 matplotlib.use('TkAgg', warn=False, force=True)
 
-seed = 42
+# Setting seed for reproducibility
+seed = 666
 torch.manual_seed(seed)
 
 
@@ -16,6 +18,7 @@ class AEXperiment(pl.LightningModule):
     """
     Pytorch Lightning module for training autoencoders.
     """
+
     def __init__(self,
                  config_path: str,
                  model_type: ModelType

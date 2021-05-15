@@ -5,6 +5,7 @@ class Logger:
     """
     Neptune logging
     """
+
     def __init__(self, exp_name: str, max_epochs: int,
                  batch_size: int, learning_rate: float):
         self.neptune_logger = NeptuneLogger(

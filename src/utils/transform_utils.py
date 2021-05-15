@@ -1,9 +1,15 @@
+# https://pytorch.org/tutorials/recipes/recipes/custom_dataset_transforms_loader.html
+
 import torch
 import torchvision
 import torchvision.transforms as T
 
 
 class CustomTransformation:
+    """
+    Set required transformations here.
+    """
+
     def __init__(self):
         torch.manual_seed(12)
         self.transforms = T.Compose([
