@@ -1,10 +1,4 @@
-import numpy as np
-from typing import List, TypeVar
-
-import torch
 import torch.nn as nn
-import torch.optim as optim
-import torch.nn.functional as F
 
 from src.autoencoders.base_autoencoder import BaseAutoencoder
 from src.utils.name_list import *

@@ -1,8 +1,7 @@
-import torch
-from torchsummary import summary
-
 import unittest
-from src.autoencoders.autoencoder import AutoEncoder
+
+import torch
+
 from src.autoencoders.custom_layers import DefaultEncoder, DefaultDecoder, \
     DefaultCNNEncoder, DefaultCNNDecoder
 

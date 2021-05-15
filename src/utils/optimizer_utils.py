@@ -1,6 +1,3 @@
-import numpy as np
-
-
 # Make scheduled optimizer
 # https://discuss.pytorch.org/t/solved-learning-rate-decay/6825/3
 def exp_lr_scheduler(optimizer, epoch, lr_decay=0.1, lr_decay_epoch=10):

@@ -1,15 +1,9 @@
-from src.utils.model_types import ModelType
-from src.autoencoders.autoencoder import AutoEncoder
-from src.autoencoders.custom_layers import DefaultEncoder, DefaultDecoder, \
-    DefaultCNNEncoder, DefaultCNNDecoder
-from src.autoencoders.model_factory import ModelFactory
-
-import cv2
-import torch
-import numpy as np
-
 import matplotlib
-import matplotlib.pyplot as plt
+import numpy as np
+import torch
+
+from src.autoencoders.model_factory import ModelFactory
+from src.utils.model_types import ModelType
 
 matplotlib.use('TkAgg', warn=False, force=True)
 

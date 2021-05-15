@@ -1,11 +1,6 @@
 # https://github.com/ethanluoyc/pytorch-vae/blob/master/vae.py
 
 import numpy as np
-from typing import List, TypeVar
-
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
 from torch.autograd import Variable
 
 from src.utils.name_list import *

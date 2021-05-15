@@ -1,5 +1,3 @@
-import torch
-
 from utils.name_list import *
 
 

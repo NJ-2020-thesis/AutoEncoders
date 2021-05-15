@@ -1,7 +1,6 @@
 # https://pytorch.org/tutorials/recipes/recipes/custom_dataset_transforms_loader.html
 
 import torch
-import torchvision
 import torchvision.transforms as T
 
 

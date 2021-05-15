@@ -2,10 +2,10 @@ import matplotlib
 import pytorch_lightning as pl
 from torch.utils.data import DataLoader
 
-from src.utils.model_types import ModelType
-from src.utils.name_list import *
 from src.dataset.vmp_dataset import VisuomotorDataset
 from src.utils.instance_provider import InstanceProvider
+from src.utils.model_types import ModelType
+from src.utils.name_list import *
 
 matplotlib.use('TkAgg', warn=False, force=True)
 

@@ -1,11 +1,12 @@
-import os
 import torch
 import warnings
 
-from src.utils.model_types import ModelType
+import torch
+
 from src.autoencoders.autoencoder import AutoEncoder
 from src.autoencoders.custom_layers import DefaultEncoder, DefaultDecoder, \
     DefaultCNNEncoder, DefaultCNNDecoder
+from src.utils.model_types import ModelType
 
 
 class ModelFactory:

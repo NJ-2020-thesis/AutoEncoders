@@ -1,9 +1,9 @@
-import torch
-
 import unittest
 
-from src.utils.model_types import ModelType
+import torch
+
 from ae_inference import get_image_representation
+from src.utils.model_types import ModelType
 
 
 class InferenceTest(unittest.TestCase):
