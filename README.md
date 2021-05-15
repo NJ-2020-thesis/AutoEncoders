@@ -1,5 +1,7 @@
 # AutoEncoders
 
+This project aims to create a modular Autoencoder training and inference pipeline. Different architectures of Autoencoders can easily be added for image representation generation along with image reconstruction.
+
 ## Pytorch image
 
 [batch_size, channels, height, width]
