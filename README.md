@@ -8,7 +8,7 @@ with bottleneck layer size.
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 <!-- Dataset -->
-<h2 id="Dataset"> :scroll: Dataset</h2>
+<h3 id="Dataset"> :scroll: Dataset</h2>
 
 The dataset used for testing consists of images captured from the wrist camera of a Kinova3 robot arm inside a
 coppeliaSim environment.
@@ -16,7 +16,7 @@ coppeliaSim environment.
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 <!-- CONTRIBUTORS -->
-<h2 id="contributors"> :scroll: Contributors</h2>
+<h3 id="contributors"> :scroll: Contributors</h2>
 
 <p>
   :mortar_board: <i>This codebase is part of the authors Master Thesis titled <a href=https://www.researchgate.net/project/Visuomotor-Policy-Learning-for-Predictive-Manipulation> Visuomotor Policy Learning for Predictive Manipulation </a> </i> <br> <br>
@@ -30,7 +30,7 @@ coppeliaSim environment.
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 <!-- REFERENCES -->
-<h2 id="References"> :scroll: References</h2>
+<h3 id="References"> :scroll: References</h2>
 
 1. https://discuss.pytorch.org/t/model-eval-vs-with-torch-no-grad/19615/10
 2. https://github.com/ma-shamshiri/Human-Activity-Recognition/blob/main/README.md
