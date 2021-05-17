@@ -4,7 +4,7 @@ This project aims to create a modular Autoencoder training and inference pipelin
 Autoencoders can easily be added for image representation generation along with image reconstruction.
 
 The pipeline is designed to read a config file to dynamically generate the relavant input, output layer dimensions along
-with bottleneck layer size.
+with bottleneck layer size. Other training related hyperparameters are also read from the config file.
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 <!-- Dataset -->
