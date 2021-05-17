@@ -5,7 +5,7 @@ model:
   decoder:
     output_shape: 625
 trainer:
-  dataset_path: '/home/anirudh/Desktop/main_dataset/**/*.png'
+  dataset_path: './vae_dataset/**/*.png'
   img_size:
     x: 64
     y: 64

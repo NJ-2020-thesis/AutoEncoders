@@ -41,5 +41,4 @@ if __name__ == "__main__":
     output_img, repr_vector = get_image_representation(model_type=ModelType.CNN_AE,
                                                        config_path="./config/cnn_ae.yaml",
                                                        model_path=MODEL_PATH,
-                                                       img=img
-                                                    )
+                                                       img=img)
