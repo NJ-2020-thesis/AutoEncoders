@@ -19,7 +19,7 @@ class InferenceTest(unittest.TestCase):
         self.assertNotEqual(output.shape, torch.Size([10, 8]), 'CNN encoder error!')
         self.assertNotEqual(repr_vec.shape, torch.Size([10, 3, 64, 64]), 'CNN decoder error!')
 
-    @unittest.skip("Skipping MLP-AE inference tests!")
+    # @unittest.skip("Skipping MLP-AE inference tests!")
     def test_mlp_ae_inference(self):
         resized_image = torch.rand((10, 625)).cuda()
         output_img, repr_vec = get_image_representation(ModelType.AE,

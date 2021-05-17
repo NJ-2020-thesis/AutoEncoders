@@ -1,7 +1,8 @@
 from typing import Tuple
+
+import cv2
 import numpy as np
 import torch
-import cv2
 
 from src.ae_training import AEXperiment
 from src.utils.model_types import ModelType

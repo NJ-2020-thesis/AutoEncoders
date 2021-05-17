@@ -5,7 +5,6 @@ from __future__ import print_function, division
 import glob
 import os
 
-import torch
 # Ignore warnings
 from PIL import Image
 from torch.utils.data.dataset import Dataset
