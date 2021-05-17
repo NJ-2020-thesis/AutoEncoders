@@ -11,7 +11,9 @@ with bottleneck layer size.
 <h3 id="Dataset"> :scroll: Dataset</h2>
 
 The dataset used for testing consists of images captured from the wrist camera of a Kinova3 robot arm inside a
-coppeliaSim environment.
+coppeliaSim environment. 
+
+![Ani](https://github.com/NJ-2020-thesis/AutoEncoders/blob/main/assets/data_augmentation.png)
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
