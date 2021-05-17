@@ -24,7 +24,7 @@ class VisuomotorDataset(Dataset):
         self.resize = resize
 
     def __getitem__(self, idx):
-        self.dataset = torch.utils.data.ConcatDataset([self.dataset, self.dataset])
+        # self.dataset = torch.utils.data.ConcatDataset([self.dataset, self.dataset])
         current_img_path = self.dataset[idx]
 
         sample = Image.open(current_img_path).convert("RGB")

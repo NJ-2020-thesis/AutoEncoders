@@ -1,3 +1,5 @@
+from typing import Tuple
+
 import torch.nn as nn
 import torch.nn.functional as F
 
@@ -69,7 +71,7 @@ class DefaultCNNEncoder(Module):
         self.conv1 = nn.Conv2d(in_channels=self.input_channels, out_channels=16, kernel_size=3, padding=1)
         self.conv2 = nn.Conv2d(in_channels=16, out_channels=4, kernel_size=3, padding=1)
 
-        # Input shape based on image size and output
+        # Input shape based on test_image size and output
         # channels from conv layer after flattening
         self.enc_f1 = nn.Linear(in_features=4 * input_size[0] * input_size[1], out_features=256)
         self.enc_f2 = nn.Linear(in_features=256, out_features=128)

@@ -6,3 +6,4 @@ torchvision==0.8.2+cu101
 tensorboard==2.4.1
 tensorflow-estimator==2.2.0
 tensorflow-gpu==2.2.0
+neptune-client

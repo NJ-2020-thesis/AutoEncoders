@@ -8,7 +8,7 @@ from src.utils.transform_utils import CustomTransformation
 class InstanceProvider:
     """
     Dependency injection module for
-    creating classes from a config file
+    generating classes from a config file
     """
 
     def __init__(self, path: str, model_type: ModelType):

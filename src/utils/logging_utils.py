@@ -3,7 +3,7 @@
 from pytorch_lightning.loggers.neptune import NeptuneLogger
 
 
-class Logger:
+class CustomLogger:
     """
     Neptune logging
     """

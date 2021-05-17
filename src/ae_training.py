@@ -2,6 +2,7 @@ import matplotlib
 import pytorch_lightning as pl
 from torch.utils.data import DataLoader
 
+from src.utils.logging_utils import CustomLogger
 from src.datasets.vmp_dataset import VisuomotorDataset
 from src.utils.instance_provider import InstanceProvider
 from src.utils.model_types import ModelType
@@ -40,6 +41,11 @@ class AEXperiment(pl.LightningModule):
         self.learning_rate = self.instance_provider.h_learning_rate
         self.dataset_img_size = self.instance_provider.h_img_size
         self.gpu = self.instance_provider.h_gpu
+
+        self.logging = CustomLogger(exp_name="Autoencoder",
+                                    max_epochs=self.epochs,
+                                    batch_size=self.batch_size,
+                                    learning_rate=self.learning_rate)
 
         self.curr_device = None
         self.train_loader, self.val_loader = None, None
